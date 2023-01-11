@@ -1,0 +1,21 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  datasource:
+    url: jdbc:postgresql://192.168.0.111:35432/postgres
+    username: barun
+    password: "!brswdb@b0"
+    hikari:
+      maximum-pool-size: 4
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+    static-locations: /resources/**
+    
