@@ -17,7 +17,7 @@ public class SampleController {
 	
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String main(Model model) {
-		System.out.println(sampleService.getSamleList(new SampleVo()));
+		//System.out.println(sampleService.getSamleList(new SampleVo()));
 		return "/sample/index";
 	}
 	
