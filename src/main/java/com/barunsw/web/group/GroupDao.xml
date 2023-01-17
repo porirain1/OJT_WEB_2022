@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.web.group.GroupDao">
+	<select id="selectGroupList" parameterType="com.barunsw.web.group.GroupVo"
+			resultType="com.barunsw.web.group.GroupVo">
+		SELECT 
+			GROUP_ID, PARENT_GROUP_ID, GROUP_NAME			
+		FROM 
+			TB_GROUP
+		<if test="groupId != 0">
+     		WHERE
+     			GROUP_ID = #{groupId}  <!-- ${groupId} 사용하려면 sql injection & xss filter -->     
+        </if>
+        ORDER BY GROUP_ID ASC
+	</select>
+	
+	<insert id="insertGroup" parameterType="com.barunsw.web.group.GroupVo">
+		INSERT INTO TB_GROUP (
+			  PARENT_GROUP_ID
+			, GROUP_NAME
+		)VALUES (
+			  #{parentGroupId}
+			, #{groupName}
+		)
+	</insert>
+	
+	<update id="updateGroup" parameterType="com.barunsw.web.group.GroupVo">
+		UPDATE
+			TB_GROUP
+		SET
+			  GROUP_ID             = #{groupId}      
+			, PARENT_GROUP_ID      = #{parentGroupId}
+			, GROUP_NAME           = #{groupName}    
+		WHERE
+			GROUP_ID = #{groupId}
+	</update>
+	
+	<delete id="deleteGroup" parameterType="com.barunsw.web.group.GroupVo">
+		DELETE FROM TB_GROUP
+		WHERE 
+			GROUP_ID = #{groupId}
+
+  	</delete>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.web.menu.MenuDao">
+
+	<select id="selectMenuList" parameterType="com.barunsw.web.menu.MenuVo"
+			resultType="com.barunsw.web.menu.MenuVo">
+		SELECT 
+			MENU_ID, PARENT_MENU_ID, MENU_NAME, MENU_URL, USE_YN			
+		FROM 
+			TB_MENU
+		<if test="menuId != 0">
+     		WHERE
+     			MENU_ID = #{menuId}
+        </if>
+        ORDER BY
+        	MENU_ID ASC
+	</select>
+	
+	<insert id="insertMenu" parameterType="com.barunsw.web.menu.MenuVo">
+		INSERT INTO TB_MENU (
+			  MENU_ID
+			, PARENT_MENU_ID
+			, MENU_NAME
+			, MENU_URL
+			, USE_YN
+		) VALUES (
+			  #{menuId}
+			, #{parentMenuId}
+			, #{menuName}
+			, #{menuUrl}
+			, #{useYn}
+		)
+	</insert>
+	
+	<update id="updateMenu" parameterType="com.barunsw.web.menu.MenuVo">
+		UPDATE
+			TB_MENU
+		SET
+			  PARENT_MENU_ID	= #{parentMenuId}
+			, MENU_NAME      	= #{menuName}   
+			, MENU_URL          = #{menuUrl}      
+			, USE_YN            = #{useYn}        
+		WHERE
+			MENU_ID = #{menuId}
+	</update>
+	
+	<delete id="deleteMenu" parameterType="com.barunsw.web.menu.MenuVo">
+		DELETE FROM TB_MENU
+		WHERE 
+			MENU_ID = #{menuId}
+  	</delete>
+</mapper>

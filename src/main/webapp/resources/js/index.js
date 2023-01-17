@@ -1,33 +1,38 @@
 $(document).ready(function () {
-	var layout = new jqxSplitLayout("#mainLayout", {
+	initComponent();
+	initEvent();
+});
+
+function initComponent() {
+	var layout = new jqxSplitLayout('#mainLayout', {  theme : 'darkblue',
 		dataSource: [
 			{
-				orientation: "horizontal",
+				orientation: 'horizontal',
 				items: [
 					{
         				modifiers: []
         				, size: '15%'
         				, content: 
-    					          `<div class="nav_bar">
-    					                <div class="logo">바른개발 연구소</div>
-                                            <div class="user_info">
-                            		        <div class="user_name">홍길동님</div>
-                                            <input type="submit" value="로그아웃" id='jqxLogoutButton'/>
-                            	       	</div>
-                                    </div>`
+    					          '<div class="nav_bar">'
+    					                +'<div class="logo">바른개발 연구소</div>'
+                                        +'<div class="user_info">'
+                            		        +'<div class="user_name">홍길동님</div>'
+                                            +'<input type="submit" value="로그아웃" id="jqxLogoutButton"/>'
+                            	       	+'</div>'
+                                    +'</div>'
                        }
                        , {
-						   orientation: "vertical",
+						   orientation: 'vertical',
 						   items:[
 							   {
 								   modifiers: []
 								   , size: '20%'
-								   , content: `<div id="menu"></div>`
+								   , content: '<div id="menu"></div>'
       	    					},
       	    					{
 									modifiers: []
 									, size: '80%'
-									, content: `<div id="content"></div>`
+									, content: '<div id="content"></div>'
       	    					}
       					]
       				}
@@ -35,7 +40,7 @@ $(document).ready(function () {
 			}
 		]
 		, ready: function() {
-			$("#jqxLogoutButton").jqxButton({ width: '20%', height: '50%' });
+			$('#jqxLogoutButton').jqxButton({ theme : 'darkblue', width: '20%', height: '50%' });
 			
 			var menuSource = [
 				{id:'menu_user', label:'사용자 관리'}
@@ -46,12 +51,27 @@ $(document).ready(function () {
             	, {id:'menu_history', label:'이력 조회'}
             	, {id:'menu_board', label:'통계 조회'}
             ];
-        	$("#menu").jqxMenu({ width: '100%', height: '100%', mode: 'vertical', source:menuSource});
-        	
-        	$('#menu').on('itemclick', function(event) {
-				console.log(event.target.id);
-            });
+        	$('#menu').jqxMenu({ theme : 'darkblue', width: '100%', height: '100%', mode: 'vertical', source:menuSource});
          }
-	})
-});
-		
+	})	
+}
+
+function initEvent() {
+	var menuUrl = {
+		  menu_user: null
+		, menu_group: '/group/list'
+		, menu_manage: '/menu/list'
+		, menu_authorization: null
+		, menu_code: null
+		, menu_history: null
+		, menu_board: null
+	}
+	
+	$('#menu').on('itemclick', function(event) {
+		if(menuUrl[event.target.id] !== null) { 
+			$('#content').load(menuUrl[event.target.id], null, function(response) {
+				console.log(menuUrl[event.target.id]);	
+			})
+		}
+	});
+}

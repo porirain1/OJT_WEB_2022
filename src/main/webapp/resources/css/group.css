@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+#groupList {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	display: none;
+}
+	
+#jqxSubmitButton {
+	margin-bottom: 20px;
+}
+	
+.buttons {
+	float: right; 
+	margin-top: 15px;
+}
+	
+#ok {
+	margin-right: 10px
+}
+
+.forms {
+	width: 400px; 
+	height: auto; 
+	display: none;
+}

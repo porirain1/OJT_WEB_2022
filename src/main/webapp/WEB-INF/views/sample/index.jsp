@@ -5,12 +5,14 @@
 <meta charset="UTF-8">
 <title>Sample Index Page</title>
 <link rel="stylesheet" href="/resources/lib/jqwidgets/styles/jqx.base.css" type="text/css" />
+<link rel="stylesheet" href="/resources/lib/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
 <script type="text/javascript" src="/resources/lib/scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/resources/lib/jqwidgets/jqx-all.js"></script>
 <script type="text/javascript">
     $(function () {
     	//jQuery.get(  url [, data] [, success(data, textStatus, jqXHR)] [, dataType] )
        	$.get('/sample/get', {name:'홍길동'}, function(response) {
+    		console.log('성공!~');
        		console.log(response);
        	});
     	
@@ -22,6 +24,7 @@
 	    	, contentType : 'application/json; charset=utf-8'
 	    	, dataType : 'json'
 	    	, success : function(response) {
+	    		console.log('성공!');
 	    		console.log(response);
        	  	}
        	});

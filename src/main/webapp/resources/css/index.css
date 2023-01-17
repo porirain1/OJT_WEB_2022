@@ -15,17 +15,16 @@ body, html {
 .nav_bar {
 	width: 100%;
     height: 100%;
-	background: #7D5A50;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    background: #004a73;
 }
 
 .logo {
     margin-left: 50px;
     font-size: 30px;
-    color: #FFFBE9;
 }
 
 .user_info {
@@ -37,16 +36,11 @@ body, html {
 }
 
 .user_name {
-    color: #FFFBE9;
     font-size: 20px;
 }
 
 #jqxLogoutButton {
-    background: #FFFBE9;
-    border-radius: 10px;
     font-size: 20px;
-    color: #7D5A50;
-	border-radius: 10px;
 }
 
 .jqx-menu-ul {
@@ -68,9 +62,10 @@ body, html {
 	font-size: 20px;
 }
 
-
 #content { 
-	background: lightgray;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
