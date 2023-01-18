@@ -43,10 +43,10 @@ function initComponent() {
 			$('#jqxLogoutButton').jqxButton({ theme : 'darkblue', width: '20%', height: '50%' });
 			
 			var menuSource = [
-				{id:'menu_user', label:'사용자 관리', value:''}
+				{id:'menu_user', label:'사용자 관리', value:'/user/list'}
             	, {id:'menu_group', label:'그룹 관리', value:'/group/list'}
            		, {id:'menu_manage', label:'메뉴 관리', value:'/menu/list'}
-            	, {id:'menu_authorization', label:'권한 관리', value:''}
+            	, {id:'menu_authorization', label:'권한 관리', value:'/auth/list'}
             	, {id:'menu_code', label:'코드 관리', value:''}
             	, {id:'menu_history', label:'이력 조회', value:''}
             	, {id:'menu_board', label:'통계 조회', value:''}
@@ -72,10 +72,10 @@ function initComponent() {
 
 function initEvent() {
 	var menuUrl = {
-		  menu_user: null
+		  menu_user: '/user/list'
 		, menu_group: '/group/list'
 		, menu_manage: '/menu/list'
-		, menu_authorization: null
+		, menu_authorization: '/auth/list'
 		, menu_code: null
 		, menu_history: null
 		, menu_board: null
