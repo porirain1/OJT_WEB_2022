@@ -26,11 +26,11 @@ public class AuthProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String id 		= authentication.getName();
+		String user_id 		= authentication.getName();
 		CustomWebAuthenticationDetails details = (CustomWebAuthenticationDetails) authentication.getDetails();
-		String passwd	 = details.getUserPasswd();
+		String user_passwd	 = details.getUserPasswd();
 		
-		UserVo paramUserVo 	= new UserVo(id, passwd);
+		UserVo paramUserVo 	= new UserVo(user_id, user_passwd);
 		UserVo userVo 		= null;
 		try {
 			// ID, PASSWORD 로 DB 조회하여 userVo 객체에 담는다.
@@ -46,7 +46,7 @@ public class AuthProvider implements AuthenticationProvider {
 			try {
 				List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 				grantedAuthorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-				final UsernamePasswordAuthenticationToken result =  new UsernamePasswordAuthenticationToken(id, passwd, grantedAuthorityList);
+				final UsernamePasswordAuthenticationToken result =  new UsernamePasswordAuthenticationToken(user_id, user_passwd, grantedAuthorityList);
 				
 				result.setDetails(userVo);
 				return result;

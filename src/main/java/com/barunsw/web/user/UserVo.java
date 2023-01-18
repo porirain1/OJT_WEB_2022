@@ -1,26 +1,83 @@
 package com.barunsw.web.user;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class UserVo {
-	private String id;
-	private String passwd;
+	private int userNum;
+	private String userId;
+	private String userPasswd;
+	private String userName;
+	private String userEmail;
+	private String userAddress;
 	
-	public UserVo() {}
+	public UserVo () {}
 	
-	public UserVo(String id, String passwd) {
-		this.id 	= id;
-		this.passwd = passwd;
+	public UserVo(String userId, String userPasswd) {
+		this.userId = userId;
+		this.userPasswd = userPasswd;
 	}
 	
-	public String getId() {
-		return id;
+	public UserVo(int userNum, String userId, String userPasswd,
+					String userName, String userEmail, String userAddress) {
+		this.userNum		= userNum;
+		this.userId 		= userId;
+		this.userPasswd 	= userPasswd;
+		this.userName 		= userName;
+		this.userEmail 	= userEmail;
+		this.userAddress 	= userAddress;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public int getuserNum() {
+		return userNum;
 	}
-	public String getPasswd() {
-		return passwd;
+
+	public void setuserNum(int userNum) {
+		this.userNum = userNum;
 	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+
+	public String getuserId() {
+		return userId;
 	}
+
+	public void setuserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getuserPasswd() {
+		return userPasswd;
+	}
+
+	public void setuserPasswd(String userPasswd) {
+		this.userPasswd = userPasswd;
+	}
+
+	public String getuserName() {
+		return userName;
+	}
+
+	public void setuserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getuserEmail() {
+		return userEmail;
+	}
+
+	public void setuserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getuserAddress() {
+		return userAddress;
+	}
+
+	public void setuserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
 }

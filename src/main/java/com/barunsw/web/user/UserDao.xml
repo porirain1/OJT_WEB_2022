@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.web.user.UserDao">
+
+	<select id="selectUserList" resultType="com.barunsw.web.user.UserVo">
+		SELECT
+			user_num ,user_id, user_passwd, user_name, user_email, user_address
+		FROM
+			tb_user
+		ORDER BY 
+			user_num ASC
+	</select>
+
+	<insert id="insertUser" parameterType="com.barunsw.web.user.UserVo">
+		INSERT INTO tb_user
+			( user_id, user_passwd, user_name, user_email, user_address)
+		VALUES 
+			(#{userId}, #{userPasswd}, #{userName}, #{userEmail}, #{userAddress})
+	</insert>
+
+	<update id="updateUser" parameterType="com.barunsw.web.user.UserVo">
+		UPDATE tb_user
+		SET user_id = #{userId}, user_passwd=#{userPasswd}, user_name=#{userName},
+						user_email=#{userEmail}, user_address=#{userAddress}
+		WHERE user_num = #{userNum}
+	</update>
+
+	<delete id="deleteUser" parameterType="com.barunsw.web.user.UserVo">
+		DELETE FROM 
+			tb_user
+		WHERE 
+			user_num = #{userNum}
+	</delete>
+	
+</mapper>
