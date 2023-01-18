@@ -11,7 +11,7 @@ function initComponent() {
 				items: [
 					{
         				modifiers: []
-        				, size: '15%'
+        				, size: '10%'
         				, content: 
     					          '<div class="nav_bar">'
     					                +'<div class="logo" style="color:white">바른개발 연구소</div>'
@@ -26,12 +26,12 @@ function initComponent() {
 						   items:[
 							   {
 								   modifiers: []
-								   , size: '20%'
+								   , size: '13%'
+									
 								   , content: '<div id="menu"></div>'
       	    					},
       	    					{
 									modifiers: []
-									, size: '80%'
 									, content: '<div id="content"></div>'
       	    					}
       					]
