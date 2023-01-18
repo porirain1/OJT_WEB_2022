@@ -11,8 +11,13 @@ spring:
     url: jdbc:postgresql://192.168.0.111:35432/postgres
     username: barun
     password: "!brswdb@b0"
-    hikari:
-      maximum-pool-size: 4
+    tomcat:
+      validation-query: select 1
+      validation-interval: 300000
+      test-while-idle: true
+      time-between-eviction-runs-millis: 300000
+      min-evictable-idle-time-millis: 300000
+      min-idle: 10
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -22,3 +27,7 @@ spring:
 mybatis:
   mapper-locations: classpath:com/barunsw/web/**/*Dao.xml
   config-location: classpath:mybatis-config.xml    
+
+crawling:
+  nara: false
+  startPage: 1

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.web.bid.BidDao">
+
+	<select id="getBidListCount" resultType="long">
+		SELECT 
+			COUNT(bid_no)
+		FROM 
+			tb_bid
+	</select>	
+
+	<select id="getBidList" resultType="com.barunsw.web.bid.BidVo">
+		SELECT 
+			bid_no, bid_job, bid_type, bid_name, bid_org, demand_org, contact, reg_date, bid_end_date
+			, TO_CHAR(crawling_date, 'YYYY-MM-DD HH24:MI:SS') as crawling_date
+			, detail_url
+		FROM 
+			tb_bid
+		LIMIT #{pagesize} OFFSET #{recordstartindex}
+	</select>	
+	
+	<select id="getBidOne" resultType="com.barunsw.web.bid.BidVo">
+		SELECT 
+			bid_no, bid_job, bid_type, bid_name, bid_org, demand_org, contact, reg_date, bid_end_date
+			, TO_CHAR(crawling_date, 'YYYYMMDDHH24MISS') as crawling_date
+			, detail_url
+		FROM 
+			tb_bid
+		WHERE
+			bid_no = #{bidNo}
+		LIMIT 1
+	</select>
+	
+	<select id="getBidDetailOne" resultType="com.barunsw.web.bid.BidDetailVo">
+		SELECT 
+			bid_no, e_method, open_yn, amount, presumed_value, budget, limited_region, possible_region, bidding_strategy_yn
+			, TO_CHAR(crawling_date, 'YYYYMMDDHH24MISS') as crawling_date
+		FROM 
+			tb_bid_detail
+		WHERE
+			bid_no = #{bidNo}
+		LIMIT 1
+	</select>
+
+	<insert id="insertBidList" parameterType="java.util.List">
+		INSERT INTO tb_bid (
+			bid_no, bid_job, bid_type, bid_name, bid_org, demand_org, contact, reg_date, bid_end_date, crawling_date, detail_url
+		) 
+		VALUES 
+		<foreach collection="list" item="item" separator=",">
+	    (
+	          #{item.bidNo}
+	        , #{item.bidJob}
+	        , #{item.bidType}
+	        , #{item.bidName}
+	        , #{item.bidOrg}
+	        , #{item.demandOrg}
+	        , #{item.contact}
+	        , #{item.regDate}
+	        , #{item.bidEndDate}
+	        , now()	
+	        , #{item.detailUrl}
+	    )
+	    </foreach>
+	</insert>
+	
+	<insert id="insertBidDetailList" parameterType="java.util.List">
+		INSERT INTO tb_bid_detail (
+			bid_no, e_method, open_yn, amount, presumed_value, budget, limited_region, possible_region, bidding_strategy_yn, crawling_date
+		) 
+		VALUES 
+		<foreach collection="list" item="item" separator=",">
+	    (
+	          #{item.bidNo}
+	        , #{item.eMethod}
+	        , #{item.openYn}
+	        , #{item.amount}
+	        , #{item.presumedValue}
+	        , #{item.budget}
+	        , #{item.limitedRegion}
+	        , #{item.possibleRegion}
+	        , #{item.biddingStrategyYn}
+	        , now()	
+	    )
+	    </foreach>
+	</insert>
+
+</mapper>

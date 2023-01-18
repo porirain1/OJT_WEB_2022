@@ -1,5 +1,6 @@
 package com.barunsw.web.main;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
