@@ -43,15 +43,29 @@ function initComponent() {
 			$('#jqxLogoutButton').jqxButton({ theme : 'darkblue', width: '20%', height: '50%' });
 			
 			var menuSource = [
-				{id:'menu_user', label:'사용자 관리'}
-            	, {id:'menu_group', label:'그룹 관리'}
-           		, {id:'menu_manage', label:'메뉴 관리'}
-            	, {id:'menu_authorization', label:'권한 관리'}
-            	, {id:'menu_code', label:'코드 관리'}
-            	, {id:'menu_history', label:'이력 조회'}
-            	, {id:'menu_board', label:'통계 조회'}
+				{id:'menu_user', label:'사용자 관리', value:''}
+            	, {id:'menu_group', label:'그룹 관리', value:'/group/list'}
+           		, {id:'menu_manage', label:'메뉴 관리', value:'/menu/list'}
+            	, {id:'menu_authorization', label:'권한 관리', value:''}
+            	, {id:'menu_code', label:'코드 관리', value:''}
+            	, {id:'menu_history', label:'이력 조회', value:''}
+            	, {id:'menu_board', label:'통계 조회', value:''}
+				, {id:'menu_nara', label:'나라 시장', value:'/bid/index'}
             ];
         	$('#menu').jqxMenu({ theme : 'darkblue', width: '100%', height: '100%', mode: 'vertical', source:menuSource});
+			$('#menu').on('itemclick', function(event) {
+				var menuUrl = $(event.target).attr('item-value'); // menuSource 셋팅할때 value로 넣은 값은 item-value 속성으로 만들어짐.
+				if ( menuUrl != '' ) {
+					$('#content').load(menuUrl, null, function(response) {
+						console.log(menuUrl[event.target.id]);	
+					})
+				}
+				/*if(menuUrl[event.target.id] !== null) { 
+					$('#content').load(menuUrl[event.target.id], null, function(response) {
+						console.log(menuUrl[event.target.id]);	
+					})
+				}*/
+			});
          }
 	})	
 }
@@ -67,11 +81,4 @@ function initEvent() {
 		, menu_board: null
 	}
 	
-	$('#menu').on('itemclick', function(event) {
-		if(menuUrl[event.target.id] !== null) { 
-			$('#content').load(menuUrl[event.target.id], null, function(response) {
-				console.log(menuUrl[event.target.id]);	
-			})
-		}
-	});
 }
