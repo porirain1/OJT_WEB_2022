@@ -11,11 +11,20 @@
 
 	<select id="getBidList" resultType="com.barunsw.web.bid.BidVo">
 		SELECT 
-			bid_no, bid_job, bid_type, bid_name, bid_org, demand_org, contact, reg_date, bid_end_date
-			, TO_CHAR(crawling_date, 'YYYY-MM-DD HH24:MI:SS') as crawling_date
-			, detail_url
-		FROM 
-			tb_bid
+			a.bid_no, a.bid_job, a.bid_type, a.bid_name, a.bid_org, a.demand_org, a.contact
+			, TO_CHAR( TO_TIMESTAMP(a.reg_date, 'YYYYMMDDHH24MI'), 'YYYY-MM-DD HH24:MI') as reg_date
+			, TO_CHAR( TO_TIMESTAMP(a.bid_end_date, 'YYYYMMDDHH24MI'), 'YYYY-MM-DD HH24:MI') as bid_end_date
+			, a.crawling_date, a.detail_url
+			, b.e_method, b.open_yn, b.amount, b.presumed_value, b.budget, b.limited_region, b.possible_region, b.bidding_strategy_yn
+		FROM tb_bid a LEFT OUTER JOIN tb_bid_detail b ON a.bid_no = b.bid_no 
+		<choose>
+			<when test="sortdatafield != null and sortdatafield != ''">
+			ORDER BY ${sortdatafield} ${sortorder}
+			</when>
+			<otherwise>
+			ORDER BY bid_end_date DESC
+			</otherwise>
+		</choose>
 		LIMIT #{pagesize} OFFSET #{recordstartindex}
 	</select>	
 	

@@ -14,7 +14,7 @@ function initComponent() {
         				, size: '15%'
         				, content: 
     					          '<div class="nav_bar">'
-    					                +'<div class="logo">바른개발 연구소</div>'
+    					                +'<div class="logo" style="color:white">바른개발 연구소</div>'
                                         +'<div class="user_info">'
                             		        +'<div class="user_name">홍길동님</div>'
                                             +'<input type="submit" value="로그아웃" id="jqxLogoutButton"/>'
