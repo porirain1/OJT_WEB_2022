@@ -4,9 +4,19 @@
 
 	<select id="getBidListCount" resultType="long">
 		SELECT 
-			COUNT(bid_no)
+			COUNT(a.bid_no)
 		FROM 
-			tb_bid
+			tb_bid a LEFT OUTER JOIN tb_bid_detail b ON a.bid_no = b.bid_no
+		WHERE 1=1
+		<if test="bidType != null and bidType != ''">
+			AND a.bid_type LIKE CONCAT('%', #{bidType}, '%')
+		</if> 
+		<if test="bidOrg != null and bidOrg != ''">
+			AND a.bid_org LIKE CONCAT('%', #{bidOrg}, '%')
+		</if> 
+		<if test="demandOrg != null and demandOrg != ''">
+			AND a.demand_org LIKE CONCAT('%', #{demandOrg}, '%')
+		</if> 
 	</select>	
 
 	<select id="getBidList" resultType="com.barunsw.web.bid.BidVo">
@@ -16,7 +26,19 @@
 			, TO_CHAR( TO_TIMESTAMP(a.bid_end_date, 'YYYYMMDDHH24MI'), 'YYYY-MM-DD HH24:MI') as bid_end_date
 			, a.crawling_date, a.detail_url
 			, b.e_method, b.open_yn, b.amount, b.presumed_value, b.budget, b.limited_region, b.possible_region, b.bidding_strategy_yn
-		FROM tb_bid a LEFT OUTER JOIN tb_bid_detail b ON a.bid_no = b.bid_no 
+		FROM tb_bid a LEFT OUTER JOIN tb_bid_detail b ON a.bid_no = b.bid_no
+		
+		WHERE 1=1
+		<if test="bidType != null and bidType != ''">
+			AND a.bid_type LIKE CONCAT('%', #{bidType}, '%')
+		</if> 
+		<if test="bidOrg != null and bidOrg != ''">
+			AND a.bid_org LIKE CONCAT('%', #{bidOrg}, '%')
+		</if> 
+		<if test="demandOrg != null and demandOrg != ''">
+			AND a.demand_org LIKE CONCAT('%', #{demandOrg}, '%')
+		</if> 
+		 
 		<choose>
 			<when test="sortdatafield != null and sortdatafield != ''">
 			ORDER BY ${sortdatafield} ${sortorder}

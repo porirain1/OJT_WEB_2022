@@ -15,6 +15,10 @@ var columnrenderer = function(value) {
     return '<div style="text-align: center; margin-top: 9px;">' + value + '</div>';
 }
 
+var checkcolumnrenderer = function(value) {
+    return '<div style="text-align: center; margin-top: 9px;">' + value + '<div style="float:right" class="show-toggle"></div></div>';
+}
+
 var columnleftrenderer = function(value) {
     return '<div style="text-align: left; margin-top: 9px;">' + value + '</div>';
 }

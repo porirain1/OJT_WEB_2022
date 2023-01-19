@@ -51,14 +51,14 @@ body, html {
     border: 0;
 }
 
-.jqx-item {
+#menu .jqx-menu-ul .jqx-item {
 	height: 10%;
 	display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.jqx-menu-item-top {
+.jqx-menu-ul .jqx-menu-item-top {
 	font-size: 20px;
 }
 
@@ -69,3 +69,14 @@ body, html {
     align-items: center;
     justify-content: center;
 }
+#content .bid-search {
+	display: inline-flex;
+}
+
+#content .bid-search .search-input, #content .bid-search .search-combo {
+	margin-top: 13px !important;
+	margin-left: 13px !important; 
+}
+
+.mt16 { margin-top: 16px !important; }
+.ml20 { margin-left: 20px; }
