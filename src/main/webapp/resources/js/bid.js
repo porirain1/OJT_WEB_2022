@@ -69,6 +69,8 @@ function initData() {
 		bidType : $('#bidType').jqxComboBox('getSelectedItem') == null ? null : $('#bidType').jqxComboBox('getSelectedItem').value
 		, bidOrg : $('#bidOrg').val()
 		, demandOrg : $('#demandOrg').val()
+		, startAmount : $('#startAmount').val()
+		, endAmount : $('#endAmount').val()
 	};
 	/*var inputCondition 	= $('#inputCondition').val();
 	var inputText 		= $('#inputText').val().trim();

@@ -4,9 +4,9 @@ public class BidDetailVo {
 	private String bidNo;  // 공고번호-차수
 	private String eMethod; // 예가방법
 	private String openYn; // 추첨번호공개여부
-	private String amount; // 사업금액
-	private String presumedValue; // 추정가격
-	private String budget; // 예산
+	private long amount; // 사업금액
+	private long presumedValue; // 추정가격
+	private long budget; // 예산
 	private String limitedRegion; // 지역제한
 	private String possibleRegion; // 참가가능 지역
 	private String biddingStrategyYn;// 지사투찰허용여부
@@ -15,7 +15,7 @@ public class BidDetailVo {
 	
 	public BidDetailVo() {}
 
-	public BidDetailVo(String bidNo, String eMethod, String openYn, String amount, String presumedValue, String budget) {
+	public BidDetailVo(String bidNo, String eMethod, String openYn, long amount, long presumedValue, long budget) {
 		this.bidNo = bidNo;
 		this.eMethod = eMethod;
 		this.openYn = openYn;
@@ -24,7 +24,7 @@ public class BidDetailVo {
 		this.budget = budget;
 	}
 
-	public BidDetailVo(String bidNo, String eMethod, String openYn, String amount, String presumedValue, String budget,
+	public BidDetailVo(String bidNo, String eMethod, String openYn, long amount, long presumedValue, long budget,
 			String limitedRegion, String possibleRegion, String biddingStrategyYn, String crawlingDate) {
 		this.bidNo = bidNo;
 		this.eMethod = eMethod;
@@ -62,27 +62,27 @@ public class BidDetailVo {
 		this.openYn = openYn;
 	}
 
-	public String getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 
-	public String getPresumedValue() {
+	public long getPresumedValue() {
 		return presumedValue;
 	}
 
-	public void setPresumedValue(String presumedValue) {
+	public void setPresumedValue(long presumedValue) {
 		this.presumedValue = presumedValue;
 	}
 
-	public String getBudget() {
+	public long getBudget() {
 		return budget;
 	}
 
-	public void setBudget(String budget) {
+	public void setBudget(long budget) {
 		this.budget = budget;
 	}
 

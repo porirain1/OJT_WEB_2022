@@ -216,9 +216,9 @@ public class BidParser {
 						bidVo.getBidNo()
 						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_E_METHOD)
 						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_OPEN_YN)
-						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT) == null ? null : convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT).replaceAll("[\\s|\\D]", "")
-						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE) == null ? null : convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE).replaceAll("[\\s|\\D]", "")
-						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET) == null ? null : convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET).replaceAll("[\\s|\\D]", "")
+						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT) == null ? 0 : Long.parseLong(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT).replaceAll("[\\s|\\D]", "")) 
+						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE) == null ? 0 : Long.parseLong(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE).replaceAll("[\\s|\\D]", ""))
+						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET) == null ? 0 : Long.parseLong(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET).replaceAll("[\\s|\\D]", ""))
 					);
 				}
 				

@@ -8,7 +8,8 @@ server:
       force: true
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.0.111:35432/postgres
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy # 운영 배포시 주석해야됨.
+    url: jdbc:log4jdbc:postgresql://192.168.0.111:35432/postgres
     username: barun
     password: "!brswdb@b0"
     tomcat:
@@ -29,5 +30,18 @@ mybatis:
   config-location: classpath:mybatis-config.xml    
 
 crawling:
-  nara: false
+  nara: true
   startPage: 1
+
+logging:
+  level:
+    org.springframework.security: WARN
+    org.springframework.web: DEBUG
+    org.springframework.core: INFO
+    org.springframework.beans: INFO
+    org.springframework.context: INFO
+    org.springframework.boot: INFO
+    jdbc.audit: WARN
+    jdbc.resultset: WARN
+    jdbc.connection: WARN
+    jdbc.sqlonly: WARN

@@ -38,6 +38,12 @@
 		<if test="demandOrg != null and demandOrg != ''">
 			AND a.demand_org LIKE CONCAT('%', #{demandOrg}, '%')
 		</if> 
+		<if test="startAmount != null and startAmount != ''">
+			AND b.amount <![CDATA[>=]]> #{startAmount}
+		</if> 
+		<if test="endAmount != null and endAmount != ''">
+			AND b.amount <![CDATA[<=]]> #{endAmount}
+		</if>
 		 
 		<choose>
 			<when test="sortdatafield != null and sortdatafield != ''">
