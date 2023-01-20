@@ -10,6 +10,7 @@ spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy # 운영 배포시 주석해야됨.
     url: jdbc:log4jdbc:postgresql://192.168.0.111:35432/postgres
+ #   url : jdbc:postgresql://barunsw.iptime.org:11000/postgres
     username: barun
     password: "!brswdb@b0"
     tomcat:

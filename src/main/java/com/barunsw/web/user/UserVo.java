@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class UserVo {
 	private int userNum;
+	private int authId;
 	private String userId;
 	private String userPasswd;
 	private String userName;
@@ -17,9 +18,10 @@ public class UserVo {
 		this.userPasswd = userPasswd;
 	}
 	
-	public UserVo(int userNum, String userId, String userPasswd,
+	public UserVo(int userNum, int authId, String userId, String userPasswd,
 					String userName, String userEmail, String userAddress) {
 		this.userNum		= userNum;
+		this.authId			= authId;
 		this.userId 		= userId;
 		this.userPasswd 	= userPasswd;
 		this.userName 		= userName;
@@ -75,6 +77,15 @@ public class UserVo {
 		this.userAddress = userAddress;
 	}
 	
+	
+	public int getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(int authId) {
+		this.authId = authId;
+	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

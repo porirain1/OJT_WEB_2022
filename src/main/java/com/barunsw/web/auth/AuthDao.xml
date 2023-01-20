@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.web.auth.AuthDao">
+
+	<select id="authList" resultType="com.barunsw.web.auth.AuthVo">
+		SELECT
+			auth_id, auth_name
+		FROM
+			tb_auth
+		ORDER BY 
+			auth_id ASC
+	</select>
+	
+	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
+		SELECT
+			u.auth_id
+			, a.auth_name
+			, u.user_id
+			, u.user_name
+		FROM
+			tb_user as u
+		JOIN
+			tb_auth as a 
+		ON 
+			u.auth_id = a.auth_id
+		ORDER BY 
+			auth_id ASC
+	</select>
+
+	<insert id="insertAuth" parameterType="com.barunsw.web.auth.AuthVo">
+		INSERT INTO tb_auth
+			(auth_id, auth_name)
+		VALUES 
+			(#{authId}, #{authName})
+	</insert>
+
+	<update id="updateAuth" parameterType="com.barunsw.web.auth.AuthVo">
+		UPDATE tb_auth
+		SET 
+			auth_id = #{authId},
+			user_address = #{userAddress}
+		WHERE 
+			auth_id = #{auth_id}
+	</update>
+
+	<delete id="deleteAuth" parameterType="com.barunsw.web.auth.AuthVo">
+		DELETE FROM 
+			tb_auth
+		WHERE 
+			auth_id = #{auth_id}
+	</delete>
+	
+</mapper>

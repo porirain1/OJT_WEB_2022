@@ -32,7 +32,7 @@ $(document).ready(function () {
 	            // 결과가 정상이면 done 실행
 	            alert("정보수정이 완료되었습니다.");
 	            console.log(resp);
-	            location.href = "/dashboard";
+	            location.href = "/user/list";
 	        }).fail(function (error) {
 	            // 실패하면 fail 실행
 	            alert("정보수정에 실패하였습니다.");

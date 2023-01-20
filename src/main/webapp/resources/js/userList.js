@@ -1,11 +1,13 @@
 $(document).ready(function () {
 	$.get('/user/get', {}, function(response) {
    		console.log(response[0]);
+   		
 			var source =
 	        {
 	        	dataType: 'json',
 	        	localData: response,
 	     		dataFields: [
+					{ name: 'authNum', type: 'number'},
 	     			{ name: 'userNum', type: 'number'},
 	     	        { name: 'userId', type: 'string'},
 	     	        { name: 'userPasswd', type: 'string'},
@@ -33,10 +35,9 @@ $(document).ready(function () {
 	 	        ]
 		     }); 	
 
-		$('#jqxbutton').jqxButton({
-		    theme: 'darkblue',
-		    width: 200,
-		    height: 30
+		$('#jqxSubmitButton').jqxButton({ theme: 'darkblue', width: 200, height: 30	});
+		$('#jqxSubmitButton').on('click', function() {
+			$('/user/regist').show();
 		});
 		
 		$('#dataTable').on('rowDoubleClick', function(event) {
