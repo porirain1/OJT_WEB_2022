@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/resources/css/user.css" type="text/css"/>
 
-<style>
-tr {
-	display : flex;'
-}
-
-</style>
-<div id="content">
-	<input type="submit" value="등록" id="jqxbutton" />
-	<div id="dataTable"></div>
+<div id="container" >
+	<div id="userList">
+		<input type="submit" value="등록" id="jqxSubmitButton" />
+		<div id="dataTable"></div>
+	</div>
 </div>
-<script type="text/javascript" src="/resources/js/userList.js"></script>
+<div id="detailFrom" class="forms"></div>
+<div id="registForm" class="forms"></div>
+
+<script type="text/javascript" src="/resources/js/userList.js?version=2023"></script>
 </html>

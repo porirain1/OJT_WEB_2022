@@ -13,18 +13,9 @@
 	
 	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT
-			u.auth_id
-			, a.auth_name
-			, u.user_id
-			, u.user_name
+			auth_id, auth_name, user_id, user_name
 		FROM
-			tb_user as u
-		JOIN
-			tb_auth as a 
-		ON 
-			u.auth_id = a.auth_id
-		ORDER BY 
-			auth_id ASC
+			tb_user_auth
 	</select>
 
 	<insert id="insertAuth" parameterType="com.barunsw.web.auth.AuthVo">

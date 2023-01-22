@@ -22,10 +22,6 @@
 	background: gray;
 }
 
-#menuForm {
-	width: 400px; 
-	height: auto;
-}
 
 tr {
 	display : flex;
