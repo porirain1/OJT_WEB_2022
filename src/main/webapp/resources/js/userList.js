@@ -57,17 +57,24 @@ function initComponent() {
 		});
 		
 		$('#dataTable').on('rowDoubleClick', function(event) {
-        	var rows = event.args.row;
+        	var args 	= event.args;
+			var row 	= args.row;
         	$('#userList').hide();
-			console.log("container Hhhhiiiiddeeeee");
 			$('#detailForm').show();
 			console.log("detailForm sssshhhhooowww");
-			console.log(rows.userNum);	
+			$('#detailForm').val({
+				'userNum' : row.userNum,
+				'userId' : row.userId,
+				'userPasswd' : row.userPasswd,
+				'userName' : row.userName,
+				'userEmail' : row.userEmail,
+				'userAddress' : row.userAddress
+			})
 
   	});
   	$('#userList').show();
+	createDetailForm();
   	createRegistForm();
-  	createDetailForm();
 }
 
 function createDetailForm() {
@@ -79,50 +86,60 @@ function createDetailForm() {
 			, { bind: 'userName', type: 'text', label: '이름', labelWidth: '100px', width: '100%' }
             , { bind: 'userEmail', type: 'text', label: '이메일', labelWidth: '100px', width: '100%'}
             , { bind: 'userAddress', type: 'text', label: '주소', labelWidth: '100px', width: '100%' }
-            , { name		: 'userUpdate_btn',
-				type		: 'button',
-				text		: '수정',
-				width		: '90px',
-				height		: '30px',
-                rowHeight	: '40px',
-                columnWidth	: '50%'
-			}
-			, { name		: 'userDelete_btn',
-				type		: 'button',
-				text		: '삭제',
-				width		: '90px',
-				height		: '30px',
-                rowHeight	: '40px',
-                columnWidth	: '50%'
+            , { columns: [ 
+							{ name : 'userUpdate_btn', type : 'button', text : '수정', width : '200px', height : '30px', rowHeight : '40px', columnWidth: '50%' }
+						  , { name : 'userDelete_btn', type : 'button', text : '삭제', width : '200px',height : '30px', rowHeight : '40px', columnWidth: '50%' }
+				]
 			}
         ]
-        
-	var $detailFrom = $('#detailFrom');
-		$detailFrom.jqxForm({ 
+
+	var $detailForm = $('#detailForm');
+		$detailForm.jqxForm({ 
 			template: template, 
-			theme: 'darkblue', 
+			theme: 'darkblue',
 			padding: { left: 10, top: 50, right: 10, bottom: 50 } 
 	});
 	
-	var userUpdate_btn = $detailFrom.jqxForm('getComponentByName', 'userUpdate_btn');    
+	var userUpdate_btn = $detailForm.jqxForm('getComponentByName', 'userUpdate_btn');    
     userUpdate_btn.on('click', function(){	
     	$.ajax({
     		url : '/user/update'
     		, type : 'POST'
-    		, data : JSON.stringify($registForm.val())
+    		, data : JSON.stringify($detailForm.val())
     		, contentType : 'application/json; charset=utf-8'
     	    , dataType : 'json'
     	}).done(function (resp) {
             // 결과가 정상이면 done 실행
-            alert("사용자 등록이 완료되었습니다.");
+            alert("사용자 수정이 완료되었습니다.");
             console.log(resp);
-            location.href = "/dashboard";
         }).fail(function (error) {
             // 실패하면 fail 실행
-            alert("사용자 등록에  실패하였습니다.");
+            alert("사용자 수정에 실패하였습니다.");
             alert(JSON.stringify(error));
         });
-    })	
+		$('#content').load('/user/list');
+    })
+    
+    var userDelete_btn = $detailForm.jqxForm('getComponentByName', 'userDelete_btn');    
+    userDelete_btn.on('click', function(){	
+    	$.ajax({
+    		url : '/user/delete'
+    		, type : 'POST'
+    		, data : JSON.stringify($detailForm.val())
+    		, contentType : 'application/json; charset=utf-8'
+    	    , dataType : 'json'
+    	}).done(function (resp) {
+            // 결과가 정상이면 done 실행
+            alert("사용자 삭제 완료되었습니다.");
+            console.log(resp);
+        }).fail(function (error) {
+            // 실패하면 fail 실행
+            alert("사용자 삭제 실패하였습니다.");
+            alert(JSON.stringify(error));
+        });
+        $('#content').load('/user/list');
+    })
+    	
 }
 
 
@@ -163,7 +180,7 @@ function createRegistForm() {
             // 결과가 정상이면 done 실행
             alert("사용자 등록이 완료되었습니다.");
             console.log(resp);
-            location.href = "/dashboard";
+            $('#content').load('/user/list');
         }).fail(function (error) {
             // 실패하면 fail 실행
             alert("사용자 등록에  실패하였습니다.");

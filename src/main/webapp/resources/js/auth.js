@@ -176,7 +176,7 @@ function addAuthForm() {
         padding: { left: 20, top: 20, right: 20, bottom: 20 }
     });
     
-    var addAuth_btn = $insertForm.jqxForm('addAuth_btn');    
+    var addAuth_btn = $insertForm.jqxForm('getComponentByName', 'addAuth_btn');    
     addAuth_btn.on('click', function(){
     	$.ajax({
     		url : '/auth/insert'
@@ -184,11 +184,12 @@ function addAuthForm() {
     		, data : JSON.stringify($insertForm.val())
     		, contentType : 'application/json; charset=utf-8'
     	    , dataType : 'json'
+    	    , 
     	}).done(function (resp) {
             // 결과가 정상이면 done 실행
             alert("관리자 추가 완료되었습니다.");
             console.log(resp);
-            location.href = "/dashboard";
+            $('#content').load('/auth/list');
         }).fail(function (error) {
             // 실패하면 fail 실행
             alert("관리자 추가 실패하였습니다.");
