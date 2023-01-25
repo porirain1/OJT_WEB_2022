@@ -1,7 +1,6 @@
 package com.barunsw.web.menu;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +14,25 @@ public class MenuService {
 	public List<MenuVo> selectMenuList(MenuVo menuVo) {
 		return menuDao.selectMenuList(menuVo);
 	}	
+	
+	public List<MenuVo> selectMenuUse(MenuVo menuVo) {
+		return menuDao.selectMenuUse(menuVo);
+	}
+
+	public MenuVo selectMenuOne(MenuVo menuVo) {
+		return menuDao.selectMenuOne(menuVo);
+	}
+	
 	public int insertMenu(MenuVo menuVo) {
-		int result = menuDao.insertMenu(menuVo);
-		System.out.println(String.format("insertMenu : %d", result));
-		return result;
-		
+		return menuDao.insertMenu(menuVo);
 	}
+	
 	public int updateMenu(MenuVo menuVo) {
-		int result = menuDao.updateMenu(menuVo);
-		System.out.println(String.format("updateMenu : %d", result));
-		return result;
+		return menuDao.updateMenu(menuVo);
 	}
+	
 	public int deleteMenu(MenuVo menuVo) {
-		int result = menuDao.deleteMenu(menuVo);
-		System.out.println(String.format("deleteMenu : %d", result));
-		return result;		
+		return menuDao.deleteMenu(menuVo);		
 	}
 
 }

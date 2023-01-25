@@ -11,24 +11,27 @@ public class GroupService {
 	@Autowired
 	private GroupDao groupDao;
 	
+	public long getGroupListCount() {
+		return groupDao.getGroupListCount();
+	}
+	
 	public List<GroupVo> selectGroupList(GroupVo groupVo) {
 		return groupDao.selectGroupList(groupVo);
 	}	
+	
+	public GroupVo selectGroupOne(GroupVo groupVo) {
+		return groupDao.selectGroupOne(groupVo);
+	}	
+	
 	public int insertGroup(GroupVo groupVo) {
-		int result = groupDao.insertGroup(groupVo);
-		System.out.println(String.format("insertGroup : %d", result));
-		return result;
-		
+		return groupDao.insertGroup(groupVo);
 	}
+	
 	public int updateGroup(GroupVo groupVo) {
-		int result = groupDao.updateGroup(groupVo);
-		System.out.println(String.format("updateGroup : %d", result));
-		return result;
+		return groupDao.updateGroup(groupVo);
 	}
+	
 	public int deleteGroup(GroupVo groupVo) {
-		int result = groupDao.deleteGroup(groupVo);
-		System.out.println(String.format("deleteGroup : %d", result));
-		return result;		
+		return groupDao.deleteGroup(groupVo);		
 	}
-
 }

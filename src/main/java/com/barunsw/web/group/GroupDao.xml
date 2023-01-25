@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.barunsw.web.group.GroupDao">
-	<select id="selectGroupList" parameterType="com.barunsw.web.group.GroupVo"
-			resultType="com.barunsw.web.group.GroupVo">
+
+	<select id="getGroupListCount" resultType="long">
 		SELECT 
-			GROUP_ID, PARENT_GROUP_ID, GROUP_NAME			
+			COUNT(*) 
 		FROM 
 			TB_GROUP
-		<if test="groupId != 0">
-     		WHERE
-     			GROUP_ID = #{groupId}  <!-- ${groupId} 사용하려면 sql injection & xss filter -->     
-        </if>
-        ORDER BY GROUP_ID ASC
+	</select>
+	
+	<select id="selectGroupList" parameterType="com.barunsw.web.group.GroupVo"
+         resultType="com.barunsw.web.group.GroupVo">
+         SELECT 
+         	GROUP_ID, PARENT_GROUP_ID, GROUP_NAME         
+         FROM 
+         	TB_GROUP
+		<choose>
+			<when test="sortdatafield != null and sortdatafield != ''">
+			ORDER BY ${sortdatafield} ${sortorder}
+			</when>
+			<otherwise>
+			ORDER BY GROUP_ID DESC
+			</otherwise>
+		</choose>
+		LIMIT #{pagesize} OFFSET #{recordstartindex}
+	</select>
+
+	<select id="selectGroupOne" parameterType="com.barunsw.web.group.GroupVo"
+         resultType="com.barunsw.web.group.GroupVo">
+         SELECT 
+         	GROUP_ID, PARENT_GROUP_ID, GROUP_NAME         
+         FROM 
+         	TB_GROUP
+         WHERE 
+         	GROUP_ID = #{groupId}
+         LIMIT 1
 	</select>
 	
 	<insert id="insertGroup" parameterType="com.barunsw.web.group.GroupVo">
@@ -28,9 +51,9 @@
 		UPDATE
 			TB_GROUP
 		SET
-			  GROUP_ID             = #{groupId}      
-			, PARENT_GROUP_ID      = #{parentGroupId}
-			, GROUP_NAME           = #{groupName}    
+			  GROUP_ID			= #{groupId}      
+			, PARENT_GROUP_ID	= #{parentGroupId}
+			, GROUP_NAME		= #{groupName}    
 		WHERE
 			GROUP_ID = #{groupId}
 	</update>
@@ -39,6 +62,6 @@
 		DELETE FROM TB_GROUP
 		WHERE 
 			GROUP_ID = #{groupId}
-
   	</delete>
+  	
 </mapper>

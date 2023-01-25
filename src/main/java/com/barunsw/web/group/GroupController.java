@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.barunsw.web.base.ResultVo;
+
 @Controller
 @RequestMapping("/group")
 public class GroupController {
@@ -18,30 +20,40 @@ public class GroupController {
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index() {
-		System.out.println(groupService.selectGroupList(new GroupVo()));
 		return "/group/list";
 	}
 	
 	@RequestMapping(value="/data", method = RequestMethod.GET)
 	@ResponseBody
-	public List<GroupVo> list() {
-		System.out.println("/group/data");
-		List<GroupVo> groupList = groupService.selectGroupList(new GroupVo());		
-		return groupList;
+	public ResultVo data(GroupVo group) {
+		ResultVo result = new ResultVo();
+		
+		long totalCount	= groupService.getGroupListCount();
+		List<GroupVo> groupList = groupService.selectGroupList(group);
+		
+		result.put("groupList", groupList);
+		result.put("totalCount", totalCount);
+		
+		return result;
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	@ResponseBody
-	public List<GroupVo> detail(GroupVo param) {
-		System.out.println(String.format("Detail [%s]", param));
-		List<GroupVo> group = groupService.selectGroupList(param);
+	public GroupVo detail(GroupVo group) {
+		GroupVo oneGroup = groupService.selectGroupOne(group);
+		return oneGroup;
+	}
+	
+	@RequestMapping(value="/insert", method = RequestMethod.POST)
+	@ResponseBody
+	public GroupVo insert(@RequestBody GroupVo group) {
+		groupService.insertGroup(group);
 		return group;
 	}
 	
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	@ResponseBody
 	public GroupVo update(@RequestBody GroupVo group) {
-		System.out.println(String.format("Update [%s]", group));
 		groupService.updateGroup(group);
 		return group;
 	}
@@ -50,14 +62,6 @@ public class GroupController {
 	@ResponseBody
 	public GroupVo delete(GroupVo group) {		
 		groupService.deleteGroup(group);
-		return group;
-	}
-	
-	@RequestMapping(value="/insert", method = RequestMethod.POST)
-	public GroupVo insert(@RequestBody GroupVo group) {
-		System.out.println(String.format("Insert [%s]", group));
-		groupService.insertGroup(group);
-		
 		return group;
 	}
 }

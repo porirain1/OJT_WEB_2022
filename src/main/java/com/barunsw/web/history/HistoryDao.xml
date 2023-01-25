@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.web.history.HistoryDao">
+	
+	<select id="selectHistoryMenu" parameterType="com.barunsw.web.history.HistoryVo"
+         resultType="com.barunsw.web.history.HistoryVo">
+		SELECT 
+			HISTORY_MENU
+		FROM 
+			TB_HISTORY
+		GROUP BY HISTORY_MENU;
+	</select>
+	
+	<select id="selectHistoryList" parameterType="com.barunsw.web.history.HistoryVo"
+         resultType="com.barunsw.web.history.HistoryVo">
+         SELECT 
+         	HISTORY_NOW, HISTORY_IP, HISTORY_MENU, MENU_URL         
+         FROM 
+         	TB_HISTORY
+	</select>
+	
+	<insert id="insertHistory" parameterType="com.barunsw.web.history.HistoryVo">
+		INSERT INTO TB_HISTORY (
+			  HISTORY_NOW
+			, HISTORY_IP
+			, HISTORY_MENU
+			, MENU_URL
+		)VALUES (
+			  now()
+			, #{historyIp}
+			, #{historyMenu}
+			, #{menuUrl}
+		)
+	</insert>
+  	
+</mapper>

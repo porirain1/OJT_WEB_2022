@@ -1,4 +1,4 @@
-package com.barunsw.web.menu;
+package com.barunsw.web.code;
 
 import java.util.List;
 
@@ -10,50 +10,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/menu")
-public class MenuController {
+@RequestMapping("/code")
+public class CodeController {
 	
 	@Autowired
-	private MenuService menuService;
+	private CodeService codeService;
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index() {
-		return "/menu/list";
+		return "/code/list";
 	}
 	
 	@RequestMapping(value="/data", method = RequestMethod.GET)
 	@ResponseBody
-	public List<MenuVo> data() {
-		List<MenuVo> menuList = menuService.selectMenuList(new MenuVo());		
-		return menuList;
+	public List<CodeVo> data() {
+		List<CodeVo> codeList = codeService.selectCodeList(new CodeVo());		
+		return codeList;
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	@ResponseBody
-	public MenuVo detail(MenuVo menu) {
-		MenuVo oneMenu = menuService.selectMenuOne(menu);		
-		return oneMenu;
+	public CodeVo detail(CodeVo code) {
+		CodeVo oneCode = codeService.selectCodeOne(code);		
+		return oneCode;
 	}
 	
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
-	@ResponseBody
-	public MenuVo insert(@RequestBody MenuVo menu) {
-		menuService.insertMenu(menu);
-		return menu;
+	public @ResponseBody CodeVo insert(@RequestBody CodeVo code) {
+		codeService.insertCode(code);
+		return code;
 	}
 	
 	@RequestMapping(value="/update", method = RequestMethod.POST)
-	@ResponseBody
-	public MenuVo update(@RequestBody MenuVo menu) {
-		menuService.updateMenu(menu);
-		return menu;
+	public @ResponseBody CodeVo update(@RequestBody CodeVo code) {
+		codeService.updateCode(code);
+		return code;
 	}
 	
 	@RequestMapping(value="/delete", method = RequestMethod.GET)
 	@ResponseBody
-	public MenuVo delete(MenuVo menu) {
-		menuService.deleteMenu(menu);
-		return menu;
+	public CodeVo delete(CodeVo code) {
+		codeService.deleteCode(code);
+		return code;
 	}
 	
 }

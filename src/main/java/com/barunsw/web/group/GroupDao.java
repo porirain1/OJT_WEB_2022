@@ -1,13 +1,16 @@
 package com.barunsw.web.group;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.barunsw.web.base.TestVo;
+
 @Mapper
 public interface GroupDao {
+	public long getGroupListCount();
 	public List<GroupVo> selectGroupList(GroupVo groupVo);
+	public GroupVo selectGroupOne(GroupVo groupVo);
 	public int insertGroup(GroupVo groupVo);
 	public int updateGroup(GroupVo groupVo);
 	public int deleteGroup(GroupVo groupVo);

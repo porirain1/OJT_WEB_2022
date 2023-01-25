@@ -48,8 +48,8 @@ function initComponent() {
            		, {id:'menu_manage', label:'메뉴 관리', value:'/menu/list'}
             	, {id:'menu_authorization', label:'권한 관리', value:'/auth/list'}
             	, {id:'menu_code', label:'코드 관리', value:'/code/list'}
-            	, {id:'menu_history', label:'이력 조회', value:''}
-            	, {id:'menu_board', label:'통계 조회', value:''}
+            	, {id:'menu_board', label:'이력 조회', value:''}
+            	, {id:'menu_history', label:'통계 조회', value:'/history/list'}
 				, {id:'menu_nara', label:'나라 시장', value:'/bid/index'}
             ];
         	$('#menu').jqxMenu({ theme : 'darkblue', width: '100%', height: '100%', mode: 'vertical', source:menuSource});

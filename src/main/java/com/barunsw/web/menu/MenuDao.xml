@@ -16,6 +16,27 @@
         	MENU_ID ASC
 	</select>
 	
+	<select id="selectMenuUse" parameterType="com.barunsw.web.menu.MenuVo"
+         resultType="com.barunsw.web.menu.MenuVo">
+         SELECT 
+			MENU_URL			
+         FROM 
+			TB_MENU
+         WHERE 
+         	USE_YN = #{useYn}
+	</select>
+
+	<select id="selectMenuOne" parameterType="com.barunsw.web.menu.MenuVo"
+         resultType="com.barunsw.web.menu.MenuVo">
+         SELECT 
+			MENU_ID, PARENT_MENU_ID, MENU_NAME, MENU_URL, USE_YN			
+         FROM 
+			TB_MENU
+         WHERE 
+         	MENU_ID = #{menuId}
+         LIMIT 1
+	</select>
+		
 	<insert id="insertMenu" parameterType="com.barunsw.web.menu.MenuVo">
 		INSERT INTO TB_MENU (
 			  MENU_ID

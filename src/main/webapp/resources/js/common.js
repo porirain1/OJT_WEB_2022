@@ -11,6 +11,18 @@ function getPagingDataAdapter(searchParams, url, dataKey) {
 	return new $.jqx.dataAdapter(source);
 }
 
+function getTreeRecodes(data, id, parentId, labelName, valueName) {
+	var source 		  = {};
+	source.localdata  = data;
+	source.datatype   = 'json';
+	source.id 	      = id;
+	source.cache 	  = false;
+	
+	var dataAdapter = new $.jqx.dataAdapter(source);
+	dataAdapter.dataBind();
+	return dataAdapter.getRecordsHierarchy(id, parentId, 'items', [{name: labelName, map: 'label'}, {name: valueName, map: 'value'}]);
+}
+
 var columnrenderer = function(value) {
     return '<div style="text-align: center; margin-top: 9px;">' + value + '</div>';
 }

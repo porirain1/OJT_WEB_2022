@@ -3,7 +3,9 @@ package com.barunsw.web.group;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class GroupVo {
+import com.barunsw.web.base.PageVo;
+
+public class GroupVo extends PageVo {
 	
 	private int groupId;
 	private int parentGroupId;
