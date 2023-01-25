@@ -25,4 +25,4 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/resources/js/auth.js"></script>
+<script type="text/javascript" src="/resources/js/auth.js?version=2023"></script>

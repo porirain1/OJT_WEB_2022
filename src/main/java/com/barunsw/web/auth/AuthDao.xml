@@ -22,7 +22,7 @@
 	
 	<select id="userNoAuthList" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT
-			auth_id, auth_name, user_id, user_name
+			auth_id, user_id, user_name
 		FROM
 			tb_user
 		WHERE
@@ -40,7 +40,7 @@
 		UPDATE tb_auth
 		SET 
 			auth_id 		= #{authId},
-			user_address 	= #{userAddress}
+			auth_name 		= #{authName}
 		WHERE 
 			auth_id 		= #{authId}
 	</update>
