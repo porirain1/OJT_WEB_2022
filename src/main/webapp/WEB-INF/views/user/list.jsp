@@ -11,5 +11,4 @@
 <div id="detailForm" class="forms"></div>
 <div id="registForm" class="forms"></div>
 
-<script type="text/javascript" src="/resources/js/userList.js"></script>
-</html>
+<script type="text/javascript" src="/resources/js/userList.js?version=2023"></script>

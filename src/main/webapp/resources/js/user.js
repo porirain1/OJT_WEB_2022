@@ -29,13 +29,14 @@ function initData() {
 		var dataAdapter = new $.jqx.dataAdapter(source);
 		$('#dataTable').jqxDataTable(
 		    {
-		    	width: 550,
-	 			height:400,
-	 			pageable: true,
-	 			pagerButtonsCount: 10,
-	 			theme: 'darkblue',
-	 			source: dataAdapter,
-	 			columnsResize: true,
+		    	width				: 550,
+	 			height				: 400,
+	 			pageable			: true,
+	 			pagerButtonsCount	: 10,
+	 			theme				: 'darkblue',
+	 			source				: dataAdapter,
+	 			columnsResize		: true,
+	 			sortable			: true,
 	 			columns: [
 	 	              { text: '회원번호', dataField: 'userNum', width: 100 },
 	 	              { text: 'ID', dataField: 'userId', width: 100 },
@@ -51,9 +52,7 @@ function initComponent() {
 		$('#jqxSubmitButton').jqxButton({ theme: 'darkblue', width: 200, height: 30	});
 		$('#jqxSubmitButton').on('click', function() {
 			$('#userList').hide();
-			console.log("container Hhhhiiiiddeeeee");
 			$('#registForm').show();
-			console.log("registFrom Shooooowwwww");
 		});
 		
 		$('#dataTable').on('rowDoubleClick', function(event) {
@@ -61,7 +60,6 @@ function initComponent() {
 			var row 	= args.row;
         	$('#userList').hide();
 			$('#detailForm').show();
-			console.log("detailForm sssshhhhooowww");
 			$('#detailForm').val({
 				'userNum' : row.userNum,
 				'userId' : row.userId,
@@ -80,7 +78,7 @@ function initComponent() {
 function createDetailForm() {
 	
 	var template = [
-			{ bind: 'userNum', type: 'text', label: '회원번호', labelWidth: '100px', width: '100%' }
+			{ name: 'userNum', bind: 'userNum', type: 'text', label: '회원번호', labelWidth: '100px', width: '100%'}
 			, { bind: 'userId', type: 'text', label: '아이디', labelWidth: '100px', width: '100%' }
 			, { bind: 'userPasswd', type: 'password', label: '비밀번호', labelWidth: '100px', width: '100%' }
 			, { bind: 'userName', type: 'text', label: '이름', labelWidth: '100px', width: '100%' }
@@ -92,13 +90,16 @@ function createDetailForm() {
 				]
 			}
         ]
-
+	
 	var $detailForm = $('#detailForm');
 		$detailForm.jqxForm({ 
 			template: template, 
 			theme: 'darkblue',
-			padding: { left: 10, top: 50, right: 10, bottom: 50 } 
-	});
+			padding: { left: 10, top: 50, right: 10, bottom: 50 },
+		});
+		
+	var input = $detailForm.jqxForm('getComponentByName', 'userNum');
+	input.jqxInput({disabled : true})
 	
 	var userUpdate_btn = $detailForm.jqxForm('getComponentByName', 'userUpdate_btn');    
     userUpdate_btn.on('click', function(){	
@@ -118,7 +119,7 @@ function createDetailForm() {
             alert(JSON.stringify(error));
         });
 		$('#content').load('/user/list');
-    })
+    });
     
     var userDelete_btn = $detailForm.jqxForm('getComponentByName', 'userDelete_btn');    
     userDelete_btn.on('click', function(){	
@@ -138,7 +139,7 @@ function createDetailForm() {
             alert(JSON.stringify(error));
         });
         $('#content').load('/user/list');
-    })
+    });
     	
 }
 
@@ -148,9 +149,9 @@ function createRegistForm() {
 	var template = [
 			  { bind: 'userId', type: 'text', label: '아이디', required: true, labelWidth: '100px', width: '100%' }
 			, { bind: 'userPasswd', type: 'password', label: '비밀번호', required: true, labelWidth: '100px', width: '100%' }
-			, { bind: 'userName', type: 'text', label: '이름', required: true, labelWidth: '100px', width: '100%' }
-            , { bind: 'userEmail', type: 'text', label: '이메일', required: true, labelWidth: '100px', width: '100%'}
-            , { bind: 'userAddress', type: 'text', label: '주소', required: true, labelWidth: '100px', width: '100%' }
+			, { bind: 'userName', type: 'text', label: '이름', labelWidth: '100px', width: '100%' }
+            , { bind: 'userEmail', type: 'text', label: '이메일', labelWidth: '100px', width: '100%'}
+            , { bind: 'userAddress', type: 'text', label: '주소', labelWidth: '100px', width: '100%' }
             , { name		: 'addUser_btn',
 				type		: 'button',
 				text		: '사용자 등록',
@@ -186,5 +187,5 @@ function createRegistForm() {
             alert("사용자 등록에  실패하였습니다.");
             alert(JSON.stringify(error));
         });
-    })	
+    });	
 }		

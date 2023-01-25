@@ -16,6 +16,17 @@
 			auth_id, auth_name, user_id, user_name
 		FROM
 			tb_user_auth
+		WHERE
+			auth_id = #{authId}
+	</select>
+	
+	<select id="userNoAuthList" resultType="com.barunsw.web.auth.AuthVo">
+		SELECT
+			auth_id, auth_name, user_id, user_name
+		FROM
+			tb_user
+		WHERE
+			auth_id = 3
 	</select>
 
 	<insert id="insertAuth" parameterType="com.barunsw.web.auth.AuthVo">
@@ -28,17 +39,17 @@
 	<update id="updateAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		UPDATE tb_auth
 		SET 
-			auth_id = #{authId},
-			user_address = #{userAddress}
+			auth_id 		= #{authId},
+			user_address 	= #{userAddress}
 		WHERE 
-			auth_id = #{auth_id}
+			auth_id 		= #{authId}
 	</update>
 
 	<delete id="deleteAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		DELETE FROM 
 			tb_auth
 		WHERE 
-			auth_id = #{auth_id}
+			auth_id = #{authId}
 	</delete>
 	
 </mapper>

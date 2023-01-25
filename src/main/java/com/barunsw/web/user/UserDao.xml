@@ -15,20 +15,20 @@
 		INSERT INTO tb_user
 			( user_id, user_passwd, user_name, user_email, user_address, auth_id )
 		VALUES 
-			(#{userId}, #{userPasswd}, #{userName}, #{userEmail}, #{userAddress}, 2)
+			(#{userId}, #{userPasswd}, #{userName}, #{userEmail}, #{userAddress}, 3)
 	</insert>
 
 	<update id="updateUser" parameterType="com.barunsw.web.user.UserVo">
 		UPDATE tb_user
 		SET 
-			user_id = #{userId}, 
-			user_passwd = #{userPasswd}, 
-			user_name = #{userName},
-			user_email = #{userEmail}, 
-			user_address = #{userAddress}, 
-			auth_id = #{authId}
+			user_id 		= #{userId}, 
+			user_passwd 	= #{userPasswd}, 
+			user_name 		= #{userName},
+			user_email 		= #{userEmail}, 
+			user_address 	= #{userAddress}, 
+			auth_id 		= #{authId}
 		WHERE 
-			user_num = #{userNum}
+			user_num 		= #{userNum}
 	</update>
 
 	<delete id="deleteUser" parameterType="com.barunsw.web.user.UserVo">

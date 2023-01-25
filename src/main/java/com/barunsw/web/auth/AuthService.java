@@ -19,6 +19,10 @@ public class AuthService {
 		return authDao.userAuthList(authVo);
 	}
 	
+	public List<AuthVo> userNoAuthList(AuthVo authVo) {			
+		return authDao.userNoAuthList(authVo);
+	}
+	
 	public int insertAuth(AuthVo authVo) {
 		return authDao.insertAuth(authVo);
 	}

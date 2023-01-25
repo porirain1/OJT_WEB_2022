@@ -16,5 +16,13 @@
 		<input id="deleteAuthUser_btn" type="submit" value="사용자 삭제" />
 	</div>
 </div>
+<div id="jqxwindow">
+	<div>사용자 리스트</div>
+	<div>
+		<div id="windowTable"></div>
+		<input id="ok" type="button" value="선택" />
+		<input id="cancel" type="button" value="닫기" />    
+	</div>
+</div>
 
 <script type="text/javascript" src="/resources/js/auth.js"></script>

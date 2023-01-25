@@ -22,7 +22,6 @@ public class AuthController {
 		return "/auth/list";
 	}
 	
-
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody List<AuthVo> get(AuthVo param) {
 		List<AuthVo> authList = authService.authList(new AuthVo());
@@ -31,9 +30,16 @@ public class AuthController {
 	
 	@RequestMapping(value = "/get/auth", method = RequestMethod.GET)
 	public @ResponseBody List<AuthVo> getAuth(AuthVo param) {
-		List<AuthVo> userAuthList = authService.userAuthList(new AuthVo());
+		List<AuthVo> userAuthList = authService.userAuthList(param);
 		System.out.println(userAuthList);
 		return userAuthList;
+	}
+	
+	@RequestMapping(value = "/get/noAuth", method = RequestMethod.GET)
+	public @ResponseBody List<AuthVo> getNullAuth(AuthVo param) {
+		List<AuthVo> userNoAuthList = authService.userNoAuthList(new AuthVo());
+		System.out.println(userNoAuthList);
+		return userNoAuthList;
 	}
 	
 	@RequestMapping(value = "/insert", method =  RequestMethod.POST)
