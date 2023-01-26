@@ -11,6 +11,10 @@ public class HistoryService {
 	@Autowired
 	private HistoryDao historyDao;
 	
+	public List<HistoryVo> test(HistoryVo historyVo) {
+		return historyDao.test(historyVo);
+	}
+	
 	public List<HistoryVo> selectHistoryList(HistoryVo historyVo) {
 		return historyDao.selectHistoryList(historyVo);
 	}	

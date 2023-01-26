@@ -2,12 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.barunsw.web.history.HistoryDao">
 	
+	
+	<select id = "test" parameterType="com.barunsw.web.history.HistoryVo"
+         resultType="com.barunsw.web.history.HistoryVo">
+select count(history_menu), TO_CHAR(history_now, 'YYYY-MM-DD') as history_now
+from tb_history
+where history_menu= '코드 관리'
+group by TO_CHAR(history_now, 'YYYY-MM-DD');     
+	</select>
 	<select id="selectHistoryMenu" parameterType="com.barunsw.web.history.HistoryVo"
          resultType="com.barunsw.web.history.HistoryVo">
 		SELECT 
 			HISTORY_MENU
 		FROM 
 			TB_HISTORY
+		WHERE HISTORY_MENU IS NOT NULL
 		GROUP BY HISTORY_MENU;
 	</select>
 	

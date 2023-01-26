@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.barunsw.web.base.TestVo;
-
 @Mapper
 public interface GroupDao {
 	public long getGroupListCount();

@@ -1,5 +1,6 @@
 package com.barunsw.web.menu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ public class MenuService {
 		return menuDao.selectMenuList(menuVo);
 	}	
 	
-	public List<MenuVo> selectMenuUse(MenuVo menuVo) {
-		return menuDao.selectMenuUse(menuVo);
+	public List<String> selectMenuUse() {
+		List<MenuVo> menuList = menuDao.selectMenuUse();
+		List<String> urlList = new ArrayList<>();
+		for(MenuVo menu : menuList) {
+			urlList.add(menu.getMenuUrl());
+		}
+		return urlList;
 	}
 
 	public MenuVo selectMenuOne(MenuVo menuVo) {

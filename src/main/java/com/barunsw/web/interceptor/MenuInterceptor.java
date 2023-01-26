@@ -12,6 +12,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.barunsw.web.history.HistoryService;
 import com.barunsw.web.history.HistoryVo;
+import com.barunsw.web.menu.MenuService;
+import com.barunsw.web.menu.MenuVo;
 
 @Component
 public class MenuInterceptor extends HandlerInterceptorAdapter {
@@ -20,11 +22,13 @@ public class MenuInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private HistoryService historyService;
+	@Autowired
+	private MenuService menuService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("=== START ===");
+		logger.debug("=== START ===");
 		historyInsert(request);
 		return super.preHandle(request, response, handler);
 		//return false; // Controller 접근 못함
@@ -34,43 +38,19 @@ public class MenuInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		System.out.println("=== END ===");
+		logger.debug("=== END ===");
 		super.postHandle(request, response, handler, modelAndView);
 	}	
 	
-	private void historyInsert(HttpServletRequest request) {
-		String menu = request.getRequestURI().split("/")[1];
-
-		// menuService 호출하여 저장된 메뉴인지 확인 하고, 저장되었다면 해당 menu 정보로 수집한다.
+	private void historyInsert(HttpServletRequest request) {	
+		MenuVo selectMenu = new MenuVo();
+		selectMenu.setMenuUrl(request.getRequestURI());
+		MenuVo oneMenu = menuService.selectMenuOne(selectMenu);
+		
 		HistoryVo historyVo = new HistoryVo(); 
 		historyVo.setHistoryIp(request.getRemoteAddr());
-		historyVo.setHistoryMenu(getMenu(menu));// db 저장된 메뉴 정보
-		historyVo.setMenuUrl(request.getRequestURI());// db 저장된 메뉴 정보
+		historyVo.setHistoryMenu(oneMenu.getMenuName());// db 저장된 메뉴 정보
+		historyVo.setMenuUrl(oneMenu.getMenuUrl());// db 저장된 메뉴 정보
 		historyService.insertHistory(historyVo); 
-		
-		logger.info("{}", historyVo);
-	}
-	
-	private String getMenu(String menu) {
-		switch(menu) {
-		case "user":
-			return "사용자 관리";
-		case "group":
-			return "그룹 관리";
-		case "menu":
-			return "메뉴 관리";
-		case "auth":
-			return "권한 관리";
-		case "code":
-			return "코드 관리";
-		case "board":
-			return "이력 조회";
-		case "history":
-			return "통계 조회";
-		case "bid":
-			return "나라 시장";
-		default:
-			return null;
-		}
 	}
 }

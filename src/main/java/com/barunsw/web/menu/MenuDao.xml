@@ -16,14 +16,14 @@
         	MENU_ID ASC
 	</select>
 	
-	<select id="selectMenuUse" parameterType="com.barunsw.web.menu.MenuVo"
+	<select id="selectMenuUse"
          resultType="com.barunsw.web.menu.MenuVo">
          SELECT 
 			MENU_URL			
          FROM 
 			TB_MENU
          WHERE 
-         	USE_YN = #{useYn}
+         	USE_YN = 'Y'
 	</select>
 
 	<select id="selectMenuOne" parameterType="com.barunsw.web.menu.MenuVo"
@@ -32,8 +32,14 @@
 			MENU_ID, PARENT_MENU_ID, MENU_NAME, MENU_URL, USE_YN			
          FROM 
 			TB_MENU
-         WHERE 
-         	MENU_ID = #{menuId}
+		<where>
+			<if test="menuId != 0">
+				AND MENU_ID = #{menuId}
+			</if>
+			<if test="menuUrl != null">
+				AND MENU_URL = #{menuUrl} 
+			</if>
+		</where>
          LIMIT 1
 	</select>
 		

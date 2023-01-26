@@ -54,4 +54,10 @@ public class HistoryController {
 		return history;
 	}
 	
+	@RequestMapping(value="/test", method = RequestMethod.GET)
+	@ResponseBody
+	public List<HistoryVo> test(HistoryVo history) {
+		List<HistoryVo> historyList = historyService.test(history);
+		return historyList;
+	}
 }
