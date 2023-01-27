@@ -216,9 +216,9 @@ public class BidParser {
 						bidVo.getBidNo()
 						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_E_METHOD)
 						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_OPEN_YN)
-						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT) == null ? 0 : Long.parseLong(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT).replaceAll("[\\s|\\D]", "")) 
-						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE) == null ? 0 : Long.parseLong(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE).replaceAll("[\\s|\\D]", ""))
-						, convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET) == null ? 0 : Long.parseLong(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET).replaceAll("[\\s|\\D]", ""))
+						, getNumberValue(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_AMOUNT)) 
+						, getNumberValue(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_PRESUMED_VALUE))
+						, getNumberValue(convertFirstMapData.get(BidConstants.CRAWLING_DETAIL_TD_BUDGET))
 					);
 				}
 				
@@ -237,6 +237,19 @@ public class BidParser {
 		}
 		
 		return null;
+	}
+	
+	private long getNumberValue(String param) {
+		long value = 0;
+		try {
+			if ( param != null ) {
+				value = Long.parseLong(param.replaceAll("[\\s|\\D]", ""));
+			}
+		}
+		catch ( NumberFormatException e) {
+			logger.warn(e.getMessage(), e);
+		}
+		return value;
 	}
 	
 	private Map<String, String> convertMap(Elements thList, Elements tdList) {
