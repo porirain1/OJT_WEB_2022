@@ -4,7 +4,7 @@
 
 	<select id="selectUserList" resultType="com.barunsw.web.user.UserVo">
 		SELECT
-			auth_id, user_num, user_id, user_passwd, user_name, user_email, user_address
+			user_num, user_id, user_passwd, user_name, user_email, user_address
 		FROM
 			tb_user
 		ORDER BY 
@@ -13,9 +13,9 @@
 
 	<insert id="insertUser" parameterType="com.barunsw.web.user.UserVo">
 		INSERT INTO tb_user
-			( user_id, user_passwd, user_name, user_email, user_address, auth_id )
+			( user_id, user_passwd, user_name, user_email, user_address )
 		VALUES 
-			(#{userId}, #{userPasswd}, #{userName}, #{userEmail}, #{userAddress}, 3)
+			(#{userId}, #{userPasswd}, #{userName}, #{userEmail}, #{userAddress})
 	</insert>
 
 	<update id="updateUser" parameterType="com.barunsw.web.user.UserVo">
@@ -25,8 +25,7 @@
 			user_passwd 	= #{userPasswd}, 
 			user_name 		= #{userName},
 			user_email 		= #{userEmail}, 
-			user_address 	= #{userAddress}, 
-			auth_id 		= #{authId}
+			user_address 	= #{userAddress}
 		WHERE 
 			user_num 		= #{userNum}
 	</update>

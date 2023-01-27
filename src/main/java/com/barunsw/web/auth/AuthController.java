@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.barunsw.web.base.ResultVo;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -17,8 +19,8 @@ public class AuthController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String userlist() {
-		System.out.println("select auth \n"+ authService.authList(new AuthVo()));
+	public String authlist() {
+		//System.out.println("select auth \n"+ authService.authList(new AuthVo()));
 		return "/auth/list";
 	}
 	

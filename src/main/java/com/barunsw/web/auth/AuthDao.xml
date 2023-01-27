@@ -13,7 +13,7 @@
 	
 	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT 
-	 		userM.auth_id, auth.auth_name, userm.user_id, userM.user_name 
+	 		userM.user_name, userm.user_id, main.* 
 		FROM (
 				SELECT
 					auth_id, user_id
@@ -27,7 +27,7 @@
 	
 	<select id="userNoAuthList" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT 
-	 		userM.auth_id, auth.auth_name, userm.user_id, userM.user_name 
+	 		main.auth_id, main.user_id, userM.user_name 
 		FROM (
 				SELECT
 					auth_id, user_id
