@@ -12,7 +12,9 @@ public interface AuthDao {
 	public List<AuthVo> userAuthList(AuthVo authVo);
 	public List<AuthVo> userNoAuthList(AuthVo authVo);
 	public int insertAuth(AuthVo authVo);
+	public int insertUserAuth(AuthVo authVo);
 	public int updateAuth(AuthVo authVo);
 	public int deleteAuth(AuthVo authVo);
+	public int deleteUserAuth(AuthVo authVo);
 	
 }

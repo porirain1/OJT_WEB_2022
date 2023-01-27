@@ -27,12 +27,22 @@ public class AuthService {
 		return authDao.insertAuth(authVo);
 	}
 
+	public int insertUserAuth(AuthVo authVo) {
+		return authDao.insertUserAuth(authVo);
+	}
+
 	public int updateAuth(AuthVo authVo) {
 		return authDao.updateAuth(authVo);
 	}
 
 	public int deleteAuth(AuthVo authVo) {
 		return authDao.deleteAuth(authVo);
-	} 
+	}
+
+	public int deleteUserAuth(AuthVo authVo) {
+		return authDao.deleteUserAuth(authVo);
+	}
+
+
 	
 }

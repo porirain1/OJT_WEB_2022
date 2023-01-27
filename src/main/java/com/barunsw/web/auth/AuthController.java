@@ -49,6 +49,13 @@ public class AuthController {
 		return param;
 	}
 	
+	@RequestMapping(value = "/insert/userAtuh", method =  RequestMethod.POST)
+	public @ResponseBody AuthVo insertUserAuth(@RequestBody AuthVo param) {
+		System.out.println("insertUserAuth \n" + param);
+		authService.insertUserAuth(param);
+		return param;
+	}
+	
 	@RequestMapping(value = "/update", method =  RequestMethod.POST)
 	public @ResponseBody AuthVo updateUser(@RequestBody AuthVo param) {
 		System.out.println("updateAuth \n" + param);
@@ -57,9 +64,16 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value = "/delete", method =  RequestMethod.POST)
-	public @ResponseBody AuthVo deleteUser(@RequestBody AuthVo param) {
+	public @ResponseBody AuthVo deleteAuth(@RequestBody AuthVo param) {
 		System.out.println("deleteAuth \n" + param);
 		authService.deleteAuth(param);
+		return param;
+	}
+	
+	@RequestMapping(value = "/delete/userAuth", method =  RequestMethod.POST)
+	public @ResponseBody AuthVo deleteUserAuth(@RequestBody AuthVo param) {
+		System.out.println("deleteUserAuth \n" + param);
+		authService.deleteUserAuth(param);
 		return param;
 	}
 	

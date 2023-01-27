@@ -20,9 +20,10 @@
 	<div>사용자 리스트</div>
 	<div>
 		<div id="windowTable"></div>
-		<input id="ok" type="button" value="선택" />
+		<input id="ok" type="button" value="권한 등록" />
 		<input id="cancel" type="button" value="닫기" />    
 	</div>
 </div>
 
 <script type="text/javascript" src="/resources/js/auth.js?version=2023"></script>
+<script type="text/javascript" src="/resources/js/common.js"></script>

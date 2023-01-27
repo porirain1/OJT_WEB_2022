@@ -12,28 +12,45 @@
 	</select>
 	
 	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
-		SELECT
-			auth_id, auth_name, user_id, user_name
-		FROM
-			tb_user_auth
-		WHERE
-			auth_id = #{authId}
+		SELECT 
+	 		userM.auth_id, auth.auth_name, userm.user_id, userM.user_name 
+		FROM (
+				SELECT
+					auth_id, user_id
+				FROM
+					tb_user_auth
+				WHERE
+					auth_id = #{authId} ) main 
+		LEFT OUTER JOIN tb_auth auth on main.auth_id = auth.auth_id  
+		LEFT OUTER JOIN tb_user userM on main.user_id = userM.user_id
 	</select>
 	
 	<select id="userNoAuthList" resultType="com.barunsw.web.auth.AuthVo">
-		SELECT
-			auth_id, user_id, user_name
-		FROM
-			tb_user
-		WHERE
-			auth_id = 3
+		SELECT 
+	 		userM.auth_id, auth.auth_name, userm.user_id, userM.user_name 
+		FROM (
+				SELECT
+					auth_id, user_id
+				FROM
+					tb_user_auth
+				WHERE
+					auth_id = 3 ) main 
+		LEFT OUTER JOIN tb_auth auth on main.auth_id = auth.auth_id  
+		LEFT OUTER JOIN tb_user userM on main.user_id = userM.user_id
 	</select>
-
+	
 	<insert id="insertAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		INSERT INTO tb_auth
 			(auth_id, auth_name)
 		VALUES 
 			(#{authId}, #{authName})
+	</insert>
+	
+	<insert id="insertUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
+		INSERT INTO tb_user_auth
+			(auth_id, user_id)
+		VALUES 
+			(#{authId}, #{userId})
 	</insert>
 
 	<update id="updateAuth" parameterType="com.barunsw.web.auth.AuthVo">
@@ -49,7 +66,15 @@
 		DELETE FROM 
 			tb_auth
 		WHERE 
-			auth_id = #{authId}
+			auth_id 		= #{authId}
 	</delete>
+	
+	<update id="deleteUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
+		UPDATE tb_user_auth
+		SET 
+			auth_id 		= 3
+		WHERE 
+			user_id 		= #{userId}
+	</update>
 	
 </mapper>
