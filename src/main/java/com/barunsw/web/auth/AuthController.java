@@ -30,6 +30,12 @@ public class AuthController {
 		return authList;
 	}
 	
+	@RequestMapping(value = "/get/one", method = RequestMethod.GET)
+	public @ResponseBody List<AuthVo> getOne(AuthVo param) {
+		List<AuthVo> authOne = authService.authOne(param);
+		return authOne;
+	}
+	
 	@RequestMapping(value = "/get/auth", method = RequestMethod.GET)
 	public @ResponseBody List<AuthVo> getAuth(AuthVo param) {
 		List<AuthVo> userAuthList = authService.userAuthList(param);
@@ -39,15 +45,15 @@ public class AuthController {
 	
 	@RequestMapping(value = "/get/noAuth", method = RequestMethod.GET)
 	public @ResponseBody List<AuthVo> getNullAuth(AuthVo param) {
-		List<AuthVo> userNoAuthList = authService.userNoAuthList(new AuthVo());
+		List<AuthVo> userNoAuthList = authService.userNoAuthList(param);
 		System.out.println(userNoAuthList);
 		return userNoAuthList;
 	}
 	
-	@RequestMapping(value = "/insert", method =  RequestMethod.POST)
-	public @ResponseBody AuthVo insertUser(@RequestBody AuthVo param) {
-		System.out.println("insertAuth \n" + param);
-		authService.insertAuth(param);
+	@RequestMapping(value = "/upsert", method =  RequestMethod.POST)
+	public @ResponseBody AuthVo upsertUser(@RequestBody AuthVo param) {
+		System.out.println("upsertAuth \n" + param);
+		authService.upsertAuth(param);
 		return param;
 	}
 	
@@ -57,14 +63,7 @@ public class AuthController {
 		authService.insertUserAuth(param);
 		return param;
 	}
-	
-	@RequestMapping(value = "/update", method =  RequestMethod.POST)
-	public @ResponseBody AuthVo updateUser(@RequestBody AuthVo param) {
-		System.out.println("updateAuth \n" + param);
-		authService.updateAuth(param);
-		return param;
-	}
-	
+
 	@RequestMapping(value = "/delete", method =  RequestMethod.POST)
 	public @ResponseBody AuthVo deleteAuth(@RequestBody AuthVo param) {
 		System.out.println("deleteAuth \n" + param);

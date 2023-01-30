@@ -11,9 +11,18 @@
 			auth_id ASC
 	</select>
 	
+	<select id="authOne" resultType="com.barunsw.web.auth.AuthVo">
+		SELECT
+			auth_id, auth_name
+		FROM
+			tb_auth
+		WHERE 
+			auth_id = #{authId}
+	</select>
+	
 	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT 
-	 		userM.user_name, userm.user_id, main.* 
+	 		userM.user_name, auth.auth_name, main.* 
 		FROM (
 				SELECT
 					auth_id, user_id
@@ -27,30 +36,39 @@
 	
 	<select id="userNoAuthList" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT 
-	 		main.auth_id, main.user_id, userM.user_name 
-		FROM (
-				SELECT
-					auth_id, user_id
-				FROM
-					tb_user_auth
-				WHERE
-					auth_id = 3 ) main 
-		LEFT OUTER JOIN tb_auth auth on main.auth_id = auth.auth_id  
-		LEFT OUTER JOIN tb_user userM on main.user_id = userM.user_id
+			user_id , user_name
+		FROM	
+			tb_user
+		WHERE
+			user_id NOT IN (SELECT user_id 
+							FROM tb_user_auth
+							WHERE auth_id = #{authId})
 	</select>
 	
-	<insert id="insertAuth" parameterType="com.barunsw.web.auth.AuthVo">
+	<insert id="upsertAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		INSERT INTO tb_auth
 			(auth_id, auth_name)
 		VALUES 
 			(#{authId}, #{authName})
+		ON CONFLICT
+			(auth_id)
+		DO UPDATE
+		SET
+			auth_id 	= #{authId},
+			auth_name 	= #{authName}
 	</insert>
 	
 	<insert id="insertUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		INSERT INTO tb_user_auth
+		INSERT INTO tb_user_auth 
 			(auth_id, user_id)
 		VALUES 
 			(#{authId}, #{userId})
+		ON CONFLICT 
+				(user_id)
+		DO UPDATE
+		SET 
+			user_id = #{userId},
+			auth_id = #{authId}
 	</insert>
 
 	<update id="updateAuth" parameterType="com.barunsw.web.auth.AuthVo">
@@ -70,9 +88,8 @@
 	</delete>
 	
 	<update id="deleteUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		UPDATE tb_user_auth
-		SET 
-			auth_id 		= 3
+		DELETE FROM 
+			tb_user_auth
 		WHERE 
 			user_id 		= #{userId}
 	</update>

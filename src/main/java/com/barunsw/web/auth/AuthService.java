@@ -15,6 +15,10 @@ public class AuthService {
 		return authDao.authList(authVo);
 	}
 	
+	public List<AuthVo> authOne(AuthVo authVo) {			
+		return authDao.authOne(authVo);
+	}
+	
 	public List<AuthVo> userAuthList(AuthVo authVo) {			
 		return authDao.userAuthList(authVo);
 	}
@@ -23,16 +27,12 @@ public class AuthService {
 		return authDao.userNoAuthList(authVo);
 	}
 	
-	public int insertAuth(AuthVo authVo) {
-		return authDao.insertAuth(authVo);
+	public int upsertAuth(AuthVo authVo) {
+		return authDao.upsertAuth(authVo);
 	}
 
 	public int insertUserAuth(AuthVo authVo) {
 		return authDao.insertUserAuth(authVo);
-	}
-
-	public int updateAuth(AuthVo authVo) {
-		return authDao.updateAuth(authVo);
 	}
 
 	public int deleteAuth(AuthVo authVo) {

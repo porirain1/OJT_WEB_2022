@@ -24,7 +24,6 @@ function initData() {
 		theme			: 'darkblue',
 		source			: dataAdapter,
 		columnsResize	: true,
-		editable		: true,
 		columns: [
 			{ text: '권한ID', dataField: 'authId', width: 150 },
 	 	    { text: '권한명', dataField: 'authName', width: 150 }
@@ -33,56 +32,52 @@ function initData() {
 }
 
 function initComponent() {
-	
-		// 오른쪽
-		var template = [
-			  { bind: 'authId', type: 'text', label: '권한ID', required: true, labelWidth: '100px', width: '100%' }
-			, { bind: 'authName', type: 'text', label: '권한명', required: true, labelWidth: '100px', width: '100%' }
-			,	{ columns: [
-					{
-					name		: 'userAuthForm_btn',
-					type		: 'button',
-					text		: '저장',
-					width		: '90px',
-					height		: '30px',
-	                rowHeight	: '40px',
-	                columnWidth	: '50%',
-	                align		: 'right'
-					}
-				]}
-			] 	
+	// 오른쪽
+	var template = [
+		  { bind: 'authId', type: 'text', label: '권한ID', required: true, labelWidth: '100px', width: '100%' }
+		, { bind: 'authName', type: 'text', label: '권한명', required: true, labelWidth: '100px', width: '100%' }
+		,	{ columns: [
+				{ name			: 'userAuthForm_btn',
+				  type			: 'button',
+				  text			: '저장',
+				  width			: '90px',
+				  height		: '30px',
+	              rowHeight		: '40px',
+	              columnWidth	: '50%',
+	              align			: 'right'
+				}
+			]}
+		]; 	
 		
-		var $authUserForm = $('#authUserForm');
-		$('#authUserForm').jqxForm({ template: template, theme: 'darkblue', padding: { left: 10, top: 10, right: 10, bottom: 10 } }); 
-		$('#authUserList').jqxDataTable(
-		{
-		   	width			: '100%',
-	 		height			: 150,
-	 		theme			: 'darkblue',
-	 		columnsResize	: true,
-	 		sortable		: true,
-	 		columns: [
-	 	          { text: '사용자명', dataField: 'userName', width: 150 },
-	 	          { text: '사용자ID', dataField: 'userId', width: 170 }
-	 	    ]
-		});
+	var $authUserForm = $('#authUserForm');
+	$('#authUserForm').jqxForm({ template: template, theme: 'darkblue', padding: { left: 10, top: 10, right: 10, bottom: 10 } }); 
+	$('#authUserList').jqxDataTable({
+		width			: '100%',
+	 	height			: 150,
+	 	theme			: 'darkblue',
+	 	columnsResize	: true,
+	 	sortable		: true,
+	 	columns: [
+	 	      { text: '사용자명', dataField: 'userName', width: 150 },
+	 	      { text: '사용자ID', dataField: 'userId', width: 170 }
+	 	]
+	});
 			
 	$('#insertAuthId_btn').jqxButton({ theme: 'darkblue', width: 97, height: 30 });
 	$('#updateAuthId_btn').jqxButton({ theme: 'darkblue', width: 97, height: 30 });
 	$('#deleteAuthId_btn').jqxButton({ theme: 'darkblue', width: 97, height: 30 });
 	
 	var userAuthForm_btn = $authUserForm.jqxForm('getComponentByName', 'userAuthForm_btn');
+	userAuthForm_btn.off().on('click', function () {			
+		goAjaxPostWithoutLoader('/auth/upsert', $('#authUserForm').val());
+		alert('권한이 등록/수정 되었습니다.');
+	   	$('#content').load('/auth/list');
+	});
+	
 	$('#authUserList').on('rowDoubleClick', function (event) {
 		var args 	= event.args;
 		var row 	= args.row;
     	console.log(JSON.stringify(row));
-    	
-		userAuthForm_btn.on('click', function () {
-			console.log(JSON.stringify(row));
-			goAjaxPostWithoutLoader('/auth/insert/userAtuh', row);
-			alert('사용자 권한이 등록 되었습니다.');
-			$('#content').load('/auth/list');		
-		});
 	});
 	
 	$('#addAuthUser_btn').jqxButton({ theme: 'darkblue', width: 166, height: 30 });
@@ -98,30 +93,24 @@ function initComponent() {
         initContent: function () {
             $('#ok').jqxButton({ theme: 'darkblue', width: 100 });
             $('#cancel').jqxButton({ theme: 'darkblue', width: 100 });
-        } 
+        }
     });
     
     $('#windowTable').jqxDataTable({
-		   	width			: '100%',
-	 		height			: 300,
-	 		theme			: 'darkblue',
-	 		columnsResize	: true,
-	 		columns: [
-	 	          { text: '권한ID', dataField: 'authId', width: 80 },
-	 	          { text: '사용자명', dataField: 'userName', width: 120 },
-	 	          { text: '사용자ID', dataField: 'userId', width: 120 }
-	 	    ]
-		});
+		width			: '100%',
+	 	height			: 300,
+	 	theme			: 'darkblue',
+	 	columnsResize	: true,
+	 	columns: [
+	 	      { text: '사용자명', dataField: 'userName', width: 150 },
+	 	      { text: '사용자ID', dataField: 'userId', width: 150 }
+	 	]
+	});
 }
 
 function initEvent() {
-			
-	$('#insertAuthId_btn').on('click', function () {
-		addAuthForm();
-		$('#addAuthForm').show();
-	});
-		
-	$('#authUserList').on('rowDoubleClick', function (event) {
+	
+	$('#authUserList').off().on('rowDoubleClick', function (event) {
 		var args 	= event.args;
 		var row 	= args.row;
     	console.log(JSON.stringify(row)); 
@@ -130,25 +119,30 @@ function initEvent() {
 			'authId' 	: row.authId,
 			'authName' 	: row.authName
 		});
-		// 사용자 삭제
-		$('#deleteAuthUser_btn').on('click', function () {
+		
+		// 사용자 권한 삭제
+		$('#deleteAuthUser_btn').off().on('click', function () {
 			$('#authUserList').jqxDataTable('deleteRow', row.uid)
 			goAjaxPostWithoutLoader('/auth/delete/userAuth', row);
 			alert('사용자 권한 삭제되었습니다.');
-			$('#content').load('/auth/list');		
-
+			$('#content').load('/auth/list');
 		});	
 	});
+	
+	$('#insertAuthId_btn').off().on('click', function () {
+	 	$('#authUserForm').val({'authId' : '', 'authName' : ''});
+	 	alert('추가 할 권한을 입력하세요');
+	});
+	
 	// 권한 없는 사용자 SELECT
 	$('#addAuthUser_btn').on('click', function () {
-		var data = goAjaxGetWithoutLoader('/auth/get/noAuth');
+		var data = goAjaxGetWithoutLoader('/auth/get/noAuth', $('#authUserForm').val());
 		console.log('data:', data)
 		
 		var source = {
 			dataType	: 'json',
 			localData	: data,
 			dataFields: [
-				{ name: 'authId' , type: 'number'},
 				{ name: 'userName', type: 'string'},
 			    { name: 'userId', type: 'string'}
 	   	    ]
@@ -159,32 +153,42 @@ function initEvent() {
 		$('#jqxwindow').show();
 	});
 	
-	$('#windowTable').on('rowDoubleClick', function (event) {
+	$('#windowTable').off().on('rowSelect', function (event) {
 		var args 	= event.args;
 		var row 	= args.row;
-		console.log('windowTable data : ', row);
-		$('#ok').on('click', function () {
+		var authInfo = $('#authUserForm').val();
+		console.log('windowTable data : ', JSON.stringify(row));
+		
+		$('#ok').off().on('click', function () {
+			var authData = {
+				authId : authInfo.authId,
+				userId : row.userId
+			}
+			console.log(authData);
+			goAjaxPostWithoutLoader('/auth/insert/userAtuh', authData);
+			alert('사용자 권한이 추가되었습니다.');
 			$('#authUserList').jqxDataTable('addRow', row, {
 				userName 	: row.userName,
 				userId		: row.userId
 			}, 'last');
+			$('#jqxwindow').hide();
 		});
 	});	
 		
 	// 1. row 선택 
 	// 2. 선택된 row의 authID에 소속된 user정보 select
 	// 3. 화면에 뿌려준다
-	$('#authList').on('rowDoubleClick', function (event) {
+	$('#authList').off().on('rowDoubleClick', function (event) {
 		var rows = event.args.row;
 		var authData = JSON.parse(JSON.stringify(rows));
-	    	
+			
 	   	$('#authUserForm').val(
 		{
 			'authId' 	: authData.authId,
 			'authName'	: authData.authName
 		});
 	    
-	    var data = goAjaxGetWithoutLoader('/auth/get/auth');
+	    var data = goAjaxGetWithoutLoader('/auth/get/auth', authData);
 	    
 	    var source = {
 			dataType: 'json',
@@ -198,56 +202,26 @@ function initEvent() {
 		}; 
 		
 		var dataAdapter = new $.jqx.dataAdapter(source);   
-		$('#authUserList').jqxDataTable({ source : dataAdapter });	
+		$('#authUserList').jqxDataTable({ source : dataAdapter });		
+		
+		// 권한 업데이트
+    	$('#updateAuthId_btn').off().on('click', function () {
+			var oneData = goAjaxGetWithoutLoader('/auth/get/one', authData);
+	    	var setOneData = JSON.parse(JSON.stringify(oneData));
+		    $('#authUserForm').val(
+				{
+					'authId' 	: setOneData[0].authId,
+					'authName'	: setOneData[0].authName
+			});
+			alert('권한을 수정해 주세요.');
+		});
 		
 		// 권한 삭제
-		$('#deleteAuthId_btn').on('click', function () {
+		$('#deleteAuthId_btn').off().on('click', function () {
 			console.log(JSON.stringify(authData));
 			goAjaxPostWithoutLoader('/auth/delete', authData);
-			alert('권한 삭제 되었습니다.');
-
+			alert('권한이 삭제 되었습니다.');
 	    	$('#content').load('/auth/list'); 
     	});		
 	});
-	
-	// 권한 업데이트
-	$('#authList').on('cellValueChanged', function (event) {
-	    var args = event.args;
-	    var row = args.row;
-    	
-    	$('#updateAuthId_btn').on('click', function () {
-			goAjaxPostWithoutLoader('/auth/update', row);
-			alert('권한 업데이트 완료되었습니다.');
-			$('#content').load('/auth/list'); 
-		});
-	});	
-}
-
-
-function addAuthForm() {
-    var template = [
-		  { bind: 'authId', type: 'text', label: '권한ID', required: true, labelWidth: '50px', width: '100%' }
-		, { bind: 'authName', type: 'text', label: '권한명', required: true, labelWidth: '50px', width: '100%' }
-		, { name		: 'addAuth_btn',
-			type		: 'button',
-			text		: '저장',
-			width		: '90px',
-			height		: '30px',
-            rowHeight	: '40px',
-            columnWidth	: '50%'
-		}
-	]
-    
-    var $insertForm = $('#addAuthForm');
-   	 	$insertForm.jqxForm({
-        template: template,
-    	theme: 'darkblue',
-        padding: { left: 20, top: 20, right: 20, bottom: 20 }
-    });
-    
-    var addAuth_btn = $insertForm.jqxForm('getComponentByName', 'addAuth_btn');    
-    addAuth_btn.on('click', function(){
-		goAjaxPostWithoutLoader('/auth/insert', $('#addAuthForm').val());
-		alert('새로운 권한이 등록 되었습니다.');
-    });
 }
