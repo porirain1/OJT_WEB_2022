@@ -17,6 +17,15 @@
 		<if test="demandOrg != null and demandOrg != ''">
 			AND a.demand_org LIKE CONCAT('%', #{demandOrg}, '%')
 		</if> 
+		<if test="startAmount != null and startAmount != ''">
+			AND b.amount <![CDATA[>=]]> #{startAmount}
+		</if> 
+		<if test="endAmount != null and endAmount != ''">
+			AND b.amount <![CDATA[<=]]> #{endAmount}
+		</if>
+		<if test="bidName != null and bidName != ''">
+			AND a.bid_name LIKE CONCAT('%', #{bidName}, '%')
+		</if> 
 	</select>	
 
 	<select id="getBidList" resultType="com.barunsw.web.bid.BidVo">
@@ -44,7 +53,9 @@
 		<if test="endAmount != null and endAmount != ''">
 			AND b.amount <![CDATA[<=]]> #{endAmount}
 		</if>
-		 
+		<if test="bidName != null and bidName != ''">
+			AND a.bid_name LIKE CONCAT('%', #{bidName}, '%')
+		</if>
 		<choose>
 			<when test="sortdatafield != null and sortdatafield != ''">
 			ORDER BY ${sortdatafield} ${sortorder}
@@ -122,4 +133,11 @@
 	    </foreach>
 	</insert>
 
+	<delete id="deleteBidList">
+	
+	</delete>
+	
+	<delete id="deleteBidDetailList">
+	
+	</delete>
 </mapper>

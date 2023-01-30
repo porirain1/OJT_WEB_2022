@@ -14,6 +14,13 @@ function initComponent() {
 	$('#search-btn').on('click', function() {
 		initData();
 	});
+	
+	$('.search-input').on('keyup', function(e) {
+		if ( e.key == 'Enter' ) {
+			initData();
+		}
+	});
+	
 	$('#bidGrid').jqxGrid({
     	theme: 'darkblue'
         , source: []
@@ -22,6 +29,7 @@ function initComponent() {
             , {text:'공고번호-차수', 	datafield: 'bidNo', 			width: '150',	renderer:columnrenderer, cellsalign: 'left'}
             , {text:'분류',			datafield: 'bidType', 			width: '50',	renderer:columnrenderer, cellsalign: 'center'}
             , {text:'공고명', 		datafield: 'bidName', 			width: '300',	renderer:columnrenderer, cellsalign: 'left'}
+			, {text:'사업금액', 		datafield: 'amount', 			width: '120',	renderer:columnrenderer, cellsalign: 'right'}
             , {text:'공고기관', 		datafield: 'bidOrg', 			width: '150',	renderer:columnrenderer, cellsalign: 'left'}
             , {text:'수요기관', 		datafield: 'demandOrg', 		width: '150',	renderer:columnrenderer, cellsalign: 'left'}
             , {text:'계약방법', 		datafield: 'contact', 			width: '150',	renderer:columnrenderer, cellsalign: 'left'}
@@ -29,9 +37,8 @@ function initComponent() {
             , {text:'입찰마감일시', 	datafield: 'bidEndDate', 		width: '160',	renderer:columnrenderer, cellsalign: 'center'}
 			, {text:'예가방법', 		datafield: 'eMethod', 			width: '300',	renderer:columnrenderer, cellsalign: 'center'}
 			, {text:'공개여부', 		datafield: 'openYn', 			width: '100',	renderer:columnrenderer, cellsalign: 'center'}
-			, {text:'사업금액', 		datafield: 'amount', 			width: '120',	renderer:columnrenderer, cellsrenderer: commaCellsRenderer}
-			, {text:'추정가격', 		datafield: 'presumedValue', 	width: '120',	renderer:columnrenderer, cellsrenderer: commaCellsRenderer}
-			, {text:'예산', 			datafield: 'budget', 			width: '120',	renderer:columnrenderer, cellsrenderer: commaCellsRenderer}
+			, {text:'추정가격', 		datafield: 'presumedValue', 	width: '120',	renderer:columnrenderer, cellsalign: 'right'}
+			, {text:'예산', 			datafield: 'budget', 			width: '120',	renderer:columnrenderer, cellsalign: 'right'}
 			, {text:'지역제한', 		datafield: 'limitedRegion', 	width: '10%',	renderer:columnrenderer, cellsalign: 'center'}
 			, {text:'참가가능', 		datafield: 'possibleRegion', 	width: '10%',	renderer:columnrenderer, cellsalign: 'center'}
 			, {text:'지사투찰허용여부', 	datafield: 'biddingStrategyYn', width: '10%',	renderer:columnrenderer, cellsalign: 'center'}
@@ -50,6 +57,12 @@ function initComponent() {
         , pagesize : 30
         , pagerbuttonscount: 10
         , rendergridrows: function(obj) {
+		console.log(obj);
+			$(obj.data).each(function(i, o){
+				o.amount = parseInt(o.amount).toLocaleString('ko-KR');
+				o.presumedValue = parseInt(o.presumedValue).toLocaleString('ko-KR')
+				o.budget = parseInt(o.budget).toLocaleString('ko-KR')
+			});
         	return obj.data;     
 		}
     });
@@ -71,6 +84,7 @@ function initData() {
 		, demandOrg : $('#demandOrg').val()
 		, startAmount : $('#startAmount').val()
 		, endAmount : $('#endAmount').val()
+		, bidName : $('#bidName').val()
 	};
 	/*var inputCondition 	= $('#inputCondition').val();
 	var inputText 		= $('#inputText').val().trim();
