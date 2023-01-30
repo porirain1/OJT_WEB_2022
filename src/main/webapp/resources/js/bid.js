@@ -59,9 +59,17 @@ function initComponent() {
         , rendergridrows: function(obj) {
 		console.log(obj);
 			$(obj.data).each(function(i, o){
-				o.amount = parseInt(o.amount).toLocaleString('ko-KR');
-				o.presumedValue = parseInt(o.presumedValue).toLocaleString('ko-KR')
-				o.budget = parseInt(o.budget).toLocaleString('ko-KR')
+				if ( o != null ) {
+					if ( o.hasOwnProperty('amount') ) {
+						o.amount = parseInt(o.amount).toLocaleString('ko-KR');
+					}
+					if ( o.hasOwnProperty('presumedValue') ) {
+						o.presumedValue = parseInt(o.presumedValue).toLocaleString('ko-KR');
+					}
+					if ( o.hasOwnProperty('budget') ) {
+						o.budget = parseInt(o.budget).toLocaleString('ko-KR');
+					}	
+				}
 			});
         	return obj.data;     
 		}
