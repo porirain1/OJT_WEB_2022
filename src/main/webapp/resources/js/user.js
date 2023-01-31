@@ -19,6 +19,7 @@ function initData() {
 	     	    { name: 'userAddress', type:'string'}
 		    ]
 		};
+		
 	var dataAdapter = new $.jqx.dataAdapter(source);
 	$('#dataTable').jqxDataTable({
 		width				: 550,
@@ -45,6 +46,7 @@ function initComponent() {
 		$('#userList').hide();
 		$('#registForm').show();
 	});
+	
 	$('#dataTable').on('rowDoubleClick', function(event) {
     	var args 	= event.args;
 		var row 	= args.row;
@@ -75,7 +77,7 @@ function createDetailForm() {
         , { bind: 'userAddress', type: 'text', label: '주소', labelWidth: '100px', width: '100%' }
         , { columns: [
 			{ name : 'userUpdate_btn', type : 'button', text : '수정', width : '200px', height : '30px', rowHeight : '40px', columnWidth: '50%' }
-			, { name : 'userDelete_btn', type : 'button', text : '삭제', width : '200px',height : '30px', rowHeight : '40px', columnWidth: '50%' }
+		  , { name : 'userDelete_btn', type : 'button', text : '삭제', width : '200px',height : '30px', rowHeight : '40px', columnWidth: '50%' }
 		]}
 	]
 	
@@ -123,10 +125,10 @@ function createRegistForm() {
 	]
         
 	var $registForm = $('#registForm');
-		$registForm.jqxForm({ 
-			template: template, 
-			theme: 'darkblue', 
-			padding: { left: 10, top: 50, right: 10, bottom: 50 } 
+	$registForm.jqxForm({ 
+		template: template, 
+		theme: 'darkblue', 
+		padding: { left: 10, top: 50, right: 10, bottom: 50 } 
 	});
 	
 	var addUser_btn = $registForm.jqxForm('getComponentByName', 'addUser_btn');    

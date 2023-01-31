@@ -29,14 +29,57 @@
        	  	}
        	});
        	
+    	
+    	/* $('#b').on('click', function(e){
+    		console.log('b click 1');
+    	});
+    	
+    	$('#b').on('click', function(e){
+    		console.log('b click 2');
+    	}); */
+    	
+    	
+    	$('#a').on('click', '#b', function(e){
+    		console.log('b click 1');
+    	});
+    	
+    	$('#d').on('click', function(e){
+    		console.log('d click 1');
+    		$('#b').remove();
+    	});
+    	
+    	$('#e').on('click', function(e){
+    		console.log('e click 1');
+    		$('#a').append('<div id="b" style="width:100px; height: 100px; background-color: blue "></div>');
+    	});
+    	
        	// jQuery.load( url [, data] [, complete(responseText, textStatus, XMLHttpRequest)] )
-       	$('#detail').load('/sample/detail', null, function(response) {
+       	/* $('#detail').load('/sample/detail', null, function(response) {
        		console.log(response);
-       	});
+       	}); */
     });
 </script>
 </head>
-<body class="default">
+<body id="default">
+
+
+
     <div id="detail"></div>
+    
+    
+    <div id="a" style="width:300px; height: 300px; background-color: black ">
+    	<div id="b" style="width:100px; height: 100px; background-color: blue "></div>
+    </div>
+    <div id="c" style="width:300px; height: 300px; background-color: red ">
+	    <div id="d" style="width:100px; height: 100px; background-color: yellow "></div>
+	    <div id="e" style="width:100px; height: 100px; background-color: green "></div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
 </body>
 </html>

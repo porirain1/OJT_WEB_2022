@@ -54,7 +54,6 @@
 			(auth_id)
 		DO UPDATE
 		SET
-			auth_id 	= #{authId},
 			auth_name 	= #{authName}
 	</insert>
 	

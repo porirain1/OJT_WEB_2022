@@ -19,14 +19,14 @@ function initData() {
 	console.log("source", source);
 	var dataAdapter = new $.jqx.dataAdapter(source); 
 	$('#authList').jqxDataTable({
-	   	width			: 300,
-		height			: 150,
+	   	width			: 500,
+		height			: 600,
 		theme			: 'darkblue',
 		source			: dataAdapter,
 		columnsResize	: true,
 		columns: [
-			{ text: '권한ID', dataField: 'authId', width: 150 },
-	 	    { text: '권한명', dataField: 'authName', width: 150 }
+			{ text: '권한ID', dataField: 'authId', width: 250 },
+	 	    { text: '권한명', dataField: 'authName', width: 250 }
 	 	]
 	});
 }
@@ -34,38 +34,32 @@ function initData() {
 function initComponent() {
 	// 오른쪽
 	var template = [
-		  { bind: 'authId', type: 'text', label: '권한ID', required: true, labelWidth: '100px', width: '100%' }
-		, { bind: 'authName', type: 'text', label: '권한명', required: true, labelWidth: '100px', width: '100%' }
-		,	{ columns: [
-				{ name			: 'userAuthForm_btn',
-				  type			: 'button',
-				  text			: '저장',
-				  width			: '90px',
-				  height		: '30px',
-	              rowHeight		: '40px',
-	              columnWidth	: '50%',
-	              align			: 'right'
-				}
-			]}
-		]; 	
+		  { name: 'authId', bind: 'authId', type: 'text', label: '권한ID', labelWidth: '100px', width: '100%' }
+		, { bind: 'authName', type: 'text', label: '권한명', labelWidth: '100px', width: '100%' }
+		, { name: 'userAuthForm_btn', type: 'button', text: '저장', width : '90px', height : '30px', align : 'right' }
+	];
 		
 	var $authUserForm = $('#authUserForm');
 	$('#authUserForm').jqxForm({ template: template, theme: 'darkblue', padding: { left: 10, top: 10, right: 10, bottom: 10 } }); 
 	$('#authUserList').jqxDataTable({
-		width			: '100%',
-	 	height			: 150,
+		width			: 500,
+	 	height			: 460,
 	 	theme			: 'darkblue',
 	 	columnsResize	: true,
 	 	sortable		: true,
 	 	columns: [
-	 	      { text: '사용자명', dataField: 'userName', width: 150 },
-	 	      { text: '사용자ID', dataField: 'userId', width: 170 }
+	 	      { text: '사용자명', dataField: 'userName', width: 250 },
+	 	      { text: '사용자ID', dataField: 'userId', width: 250 }
 	 	]
 	});
+	
+		
+	var input = $authUserForm.jqxForm('getComponentByName', 'authId');
+	input.jqxInput({disabled : true});
 			
-	$('#insertAuthId_btn').jqxButton({ theme: 'darkblue', width: 97, height: 30 });
-	$('#updateAuthId_btn').jqxButton({ theme: 'darkblue', width: 97, height: 30 });
-	$('#deleteAuthId_btn').jqxButton({ theme: 'darkblue', width: 97, height: 30 });
+	$('#insertAuthId_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
+	$('#updateAuthId_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
+	$('#deleteAuthId_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	
 	var userAuthForm_btn = $authUserForm.jqxForm('getComponentByName', 'userAuthForm_btn');
 	userAuthForm_btn.off().on('click', function () {			
@@ -80,21 +74,20 @@ function initComponent() {
     	console.log(JSON.stringify(row));
 	});
 	
-	$('#addAuthUser_btn').jqxButton({ theme: 'darkblue', width: 166, height: 30 });
-	$('#deleteAuthUser_btn').jqxButton({ theme: 'darkblue', width: 166, height: 30 });
+	$('#addAuthUser_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
+	$('#deleteAuthUser_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	
-	$("#jqxwindow").jqxWindow({ 
-		width		: 312, 
+	$('#jqxwindow').jqxWindow({ 
+		width		: 400, 
 		height		: 400,
 		theme		: 'darkblue',
         autoOpen	: false,
-        okButton	: $('#ok'), 
-        cancelButton: $('#cancel'),
-        initContent: function () {
-            $('#ok').jqxButton({ theme: 'darkblue', width: 100 });
-            $('#cancel').jqxButton({ theme: 'darkblue', width: 100 });
-        }
+        okButton	: $('#ok'),
+        cancelButton: $('#cancel')
     });
+    
+    $('#ok').jqxButton({ theme: 'darkblue', width: 90, height: 30 });
+	$('#cancel').jqxButton({ theme: 'darkblue', width: 90, height: 30 });
     
     $('#windowTable').jqxDataTable({
 		width			: '100%',
@@ -102,8 +95,8 @@ function initComponent() {
 	 	theme			: 'darkblue',
 	 	columnsResize	: true,
 	 	columns: [
-	 	      { text: '사용자명', dataField: 'userName', width: 150 },
-	 	      { text: '사용자ID', dataField: 'userId', width: 150 }
+	 	      { text: '사용자명', dataField: 'userName', width: '50%' },
+	 	      { text: '사용자ID', dataField: 'userId', width: '50%' }
 	 	]
 	});
 }
@@ -135,7 +128,7 @@ function initEvent() {
 	});
 	
 	// 권한 없는 사용자 SELECT
-	$('#addAuthUser_btn').on('click', function () {
+	$('#addAuthUser_btn').off().on('click', function () {
 		var data = goAjaxGetWithoutLoader('/auth/get/noAuth', $('#authUserForm').val());
 		console.log('data:', data)
 		
@@ -224,4 +217,5 @@ function initEvent() {
 	    	$('#content').load('/auth/list'); 
     	});		
 	});
+
 }
