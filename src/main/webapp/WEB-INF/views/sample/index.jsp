@@ -61,12 +61,7 @@
 </script>
 </head>
 <body id="default">
-
-
-
-    <div id="detail"></div>
-    
-    
+    <div id="detail"></div>    
     <div id="a" style="width:300px; height: 300px; background-color: black ">
     	<div id="b" style="width:100px; height: 100px; background-color: blue "></div>
     </div>

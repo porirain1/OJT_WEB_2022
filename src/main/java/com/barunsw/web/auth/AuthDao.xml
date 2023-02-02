@@ -46,15 +46,20 @@
 	</select>
 	
 	<insert id="upsertAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		INSERT INTO tb_auth
-			(auth_id, auth_name)
-		VALUES 
-			(#{authId}, #{authName})
-		ON CONFLICT
-			(auth_id)
-		DO UPDATE
-		SET
-			auth_name 	= #{authName}
+			<if test="authId == null or authId.equals('')">
+				INSERT INTO tb_auth
+					(auth_name)
+				VALUES 
+					(#{authName})			
+			</if>
+			<if test="authId >= 0">
+				UPDATE tb_auth
+				SET 
+					auth_id 		= #{authId},
+					auth_name 		= #{authName}
+				WHERE 
+					auth_id 		= #{authId}
+				</if>
 	</insert>
 	
 	<insert id="insertUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
@@ -62,12 +67,6 @@
 			(auth_id, user_id)
 		VALUES 
 			(#{authId}, #{userId})
-		ON CONFLICT 
-				(user_id)
-		DO UPDATE
-		SET 
-			user_id = #{userId},
-			auth_id = #{authId}
 	</insert>
 
 	<update id="updateAuth" parameterType="com.barunsw.web.auth.AuthVo">

@@ -22,8 +22,8 @@ function initData() {
 		
 	var dataAdapter = new $.jqx.dataAdapter(source);
 	$('#dataTable').jqxDataTable({
-		width				: 550,
-	 	height				: 400,
+		width			: '100%',
+		height			: 'calc(100% - 70px)',
 	 	pageable			: true,
 	 	pagerButtonsCount	: 10,
 	 	theme				: 'darkblue',
@@ -31,17 +31,17 @@ function initData() {
 	 	columnsResize		: true,
 	 	sortable			: true,
 	 	columns: [
-	 		{ text: '회원번호', dataField: 'userNum', width: 100 },
-	 		{ text: 'ID', dataField: 'userId', width: 100 },
-	 		{ text: '이름', dataField: 'userName', width: 100 },
-	 	    { text: '이메일', dataField: 'userEmail', width: 150 },
-	 	    { text: '주소', dataField: 'userAddress', width: 100 },
+	 		{ text: '회원번호', dataField: 'userNum', width: '20%' },
+	 		{ text: 'ID', dataField: 'userId', width: '20%' },
+	 		{ text: '이름', dataField: 'userName', width: '20%' },
+	 	    { text: '이메일', dataField: 'userEmail', width: '20%' },
+	 	    { text: '주소', dataField: 'userAddress', width: '20%' },
 	 	]
 	}); 	
 }
 function initComponent() {
 	
-	$('#jqxSubmitButton').jqxButton({ theme: 'darkblue', width: 200, height: 30	});
+	$('#jqxSubmitButton').jqxButton({ theme: 'darkblue', width: 150, height: 40	});
 	$('#jqxSubmitButton').off().on('click', function() {
 		$('#userList').hide();
 		$('#registForm').show();
@@ -76,8 +76,8 @@ function createDetailForm() {
         , { bind: 'userEmail', type: 'text', label: '이메일', labelWidth: '100px', width: '100%'}
         , { bind: 'userAddress', type: 'text', label: '주소', labelWidth: '100px', width: '100%' }
         , { columns: [
-			{ name : 'userUpdate_btn', type : 'button', text : '수정', width : '200px', height : '30px', rowHeight : '40px', columnWidth: '50%' }
-		  , { name : 'userDelete_btn', type : 'button', text : '삭제', width : '200px',height : '30px', rowHeight : '40px', columnWidth: '50%' }
+			{ name: 'userUpdate_btn', type: 'button', text: '수정', width: '200px', height: '40px', rowHeight: '40px', columnWidth: '50%', align: 'right' }
+		  , { name: 'userDelete_btn', type: 'button', text: '삭제', width: '200px', height: '40px', rowHeight: '40px', columnWidth: '50%', align: 'right' }
 		]}
 	]
 	
@@ -117,10 +117,11 @@ function createRegistForm() {
         , { name		: 'addUser_btn',
 			type		: 'button',
 			text		: '사용자 등록',
-			width		: '90px',
-			height		: '30px',
+			width		: '200px',
+			height		: '40px',
         	rowHeight	: '40px',
-        	columnWidth	: '50%'
+        	columnWidth	: '100%',
+        	align		: 'right'
 		}
 	]
         

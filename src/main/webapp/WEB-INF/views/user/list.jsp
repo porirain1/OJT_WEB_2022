@@ -2,11 +2,10 @@
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/resources/css/user.css" type="text/css"/>
 
-<div id="container" >
-	<div id="userList">
-		<input type="submit" value="등록" id="jqxSubmitButton" />
-		<div id="dataTable"></div>
-	</div>
+
+<div id="userList">
+	<input type="submit" value="등록" id="jqxSubmitButton" />
+	<div id="dataTable"></div>
 </div>
 <div id="detailForm" class="forms"></div>
 <div id="registForm" class="forms"></div>

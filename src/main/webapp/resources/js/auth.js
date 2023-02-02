@@ -19,14 +19,14 @@ function initData() {
 	console.log("source", source);
 	var dataAdapter = new $.jqx.dataAdapter(source); 
 	$('#authList').jqxDataTable({
-	   	width			: 500,
-		height			: 600,
+	   	width			: '100%',
+		height			: 'calc(100% - 70px)',
 		theme			: 'darkblue',
 		source			: dataAdapter,
 		columnsResize	: true,
 		columns: [
-			{ text: '권한ID', dataField: 'authId', width: 250 },
-	 	    { text: '권한명', dataField: 'authName', width: 250 }
+			{ text: '권한ID', dataField: 'authId', width: '50%' },
+	 	    { text: '권한명', dataField: 'authName', width: '50%' }
 	 	]
 	});
 }
@@ -42,14 +42,14 @@ function initComponent() {
 	var $authUserForm = $('#authUserForm');
 	$('#authUserForm').jqxForm({ template: template, theme: 'darkblue', padding: { left: 10, top: 10, right: 10, bottom: 10 } }); 
 	$('#authUserList').jqxDataTable({
-		width			: 500,
-	 	height			: 460,
+		width			: '100%',
+	 	height			: 'calc(100% - 210px)',
 	 	theme			: 'darkblue',
 	 	columnsResize	: true,
 	 	sortable		: true,
 	 	columns: [
-	 	      { text: '사용자명', dataField: 'userName', width: 250 },
-	 	      { text: '사용자ID', dataField: 'userId', width: 250 }
+	 	      { text: '사용자명', dataField: 'userName', width: '50%' },
+	 	      { text: '사용자ID', dataField: 'userId', width: '50%' }
 	 	]
 	});
 	
@@ -78,12 +78,15 @@ function initComponent() {
 	$('#deleteAuthUser_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	
 	$('#jqxwindow').jqxWindow({ 
-		width		: 400, 
-		height		: 400,
+		width		: 450, 
+		height		: 430,
 		theme		: 'darkblue',
         autoOpen	: false,
+        isModal		: true, 
+        modalOpacity: 0.3,
+        showCloseButton:true,
         okButton	: $('#ok'),
-        cancelButton: $('#cancel')
+        cancelButton: $('#cancel'),
     });
     
     $('#ok').jqxButton({ theme: 'darkblue', width: 90, height: 30 });
@@ -143,7 +146,8 @@ function initEvent() {
 		
 		var dataAdapter = new $.jqx.dataAdapter(source);   
 		$('#windowTable').jqxDataTable({ source : dataAdapter });
-		$('#jqxwindow').show();
+		$('#jqxwindow').jqxWindow('open');
+		$("#windowTable").jqxDataTable('render');
 	});
 	
 	$('#windowTable').off().on('rowSelect', function (event) {
@@ -164,7 +168,7 @@ function initEvent() {
 				userName 	: row.userName,
 				userId		: row.userId
 			}, 'last');
-			$('#jqxwindow').hide();
+			$('#jqxwindow').jqxWindow('close');
 		});
 	});	
 		
@@ -187,7 +191,7 @@ function initEvent() {
 			dataType: 'json',
 			localData: data,
 			dataFields: [
-				{ name: 'authId', type: 'number' },
+				{ name: 'authId', type: 'string' },
 			    { name: 'authName', type: 'string' },
 			    { name: 'userId', type: 'string' },
 			    { name: 'userName', type: 'string' }
