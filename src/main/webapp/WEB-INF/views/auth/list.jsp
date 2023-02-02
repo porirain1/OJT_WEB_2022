@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/resources/css/auth.css" type="text/css"/>
+<script type="text/javascript" src="/resources/js/auth.js?version=2023"></script>
+<script type="text/javascript" src="/resources/js/common.js"></script>
 
 <div id="authBox">
 	<div class="auth-container">
@@ -29,7 +31,3 @@
 		</div>
 	</div>
 </div>
-
-
-<script type="text/javascript" src="/resources/js/auth.js?version=2023"></script>
-<script type="text/javascript" src="/resources/js/common.js"></script>

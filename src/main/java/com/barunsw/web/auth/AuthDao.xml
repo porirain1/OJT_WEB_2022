@@ -17,7 +17,7 @@
 		FROM
 			tb_auth
 		WHERE 
-			auth_id = #{authId}
+			auth_id = CAST(#{authId} AS INTEGER)
 	</select>
 	
 	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
@@ -29,7 +29,7 @@
 				FROM
 					tb_user_auth
 				WHERE
-					auth_id = #{authId} ) main 
+					auth_id = CAST(#{authId} AS INTEGER) ) main 
 		LEFT OUTER JOIN tb_auth auth on main.auth_id = auth.auth_id  
 		LEFT OUTER JOIN tb_user userM on main.user_id = userM.user_id
 	</select>
@@ -42,54 +42,47 @@
 		WHERE
 			user_id NOT IN (SELECT user_id 
 							FROM tb_user_auth
-							WHERE auth_id = #{authId})
+							WHERE auth_id = CAST(#{authId} AS INTEGER))
 	</select>
 	
 	<insert id="upsertAuth" parameterType="com.barunsw.web.auth.AuthVo">
-			<if test="authId == null or authId.equals('')">
+		<choose>
+			<when test="authId == null or authId.equals('')">
 				INSERT INTO tb_auth
 					(auth_name)
 				VALUES 
 					(#{authName})			
-			</if>
-			<if test="authId >= 0">
+			</when>
+			<when test="authId >= 0">
 				UPDATE tb_auth
 				SET 
-					auth_id 		= #{authId},
+					auth_id 		= CAST(#{authId} AS INTEGER),
 					auth_name 		= #{authName}
 				WHERE 
-					auth_id 		= #{authId}
-				</if>
+					auth_id 		= CAST(#{authId} AS INTEGER)
+				</when>
+			</choose>
 	</insert>
 	
 	<insert id="insertUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		INSERT INTO tb_user_auth 
 			(auth_id, user_id)
 		VALUES 
-			(#{authId}, #{userId})
+			(CAST(#{authId} AS INTEGER), #{userId})
 	</insert>
-
-	<update id="updateAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		UPDATE tb_auth
-		SET 
-			auth_id 		= #{authId},
-			auth_name 		= #{authName}
-		WHERE 
-			auth_id 		= #{authId}
-	</update>
 
 	<delete id="deleteAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		DELETE FROM 
 			tb_auth
 		WHERE 
-			auth_id 		= #{authId}
+			auth_id 		= CAST(#{authId} AS INTEGER)
 	</delete>
 	
-	<update id="deleteUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
+	<delete id="deleteUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		DELETE FROM 
 			tb_user_auth
 		WHERE 
 			user_id 		= #{userId}
-	</update>
+	</delete>
 	
 </mapper>

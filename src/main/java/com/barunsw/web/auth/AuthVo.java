@@ -3,25 +3,25 @@ package com.barunsw.web.auth;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class AuthVo {
-	private int authId;
+	private String authId;
 	private String authName;
 	private String userId;
 	private String userName;
 	
 	public AuthVo () {}
 	
-	public AuthVo(int authId, String authName, String userId, String userName) {
+	public AuthVo(String authId, String authName, String userId, String userName) {
 		this.authId = authId;
 		this.authName = authName;
 		this.userId = userId;
 		this.userName = userName;
 	}
 		
-	public int getAuthId() {
+	public String getAuthId() {
 		return authId;
 	}
 
-	public void setAuthId(int authId) {
+	public void setAuthId(String authId) {
 		this.authId = authId;
 	}
 

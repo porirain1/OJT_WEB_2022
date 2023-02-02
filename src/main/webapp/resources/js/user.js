@@ -42,7 +42,7 @@ function initData() {
 function initComponent() {
 	
 	$('#jqxSubmitButton').jqxButton({ theme: 'darkblue', width: 150, height: 40	});
-	$('#jqxSubmitButton').off().on('click', function() {
+	$('#jqxSubmitButton').on('click', function() {
 		$('#userList').hide();
 		$('#registForm').show();
 	});
@@ -92,14 +92,14 @@ function createDetailForm() {
 	input.jqxInput({disabled : true});
 	
 	var userUpdate_btn = $detailForm.jqxForm('getComponentByName', 'userUpdate_btn');    
-    userUpdate_btn.off().on('click', function() {
+    userUpdate_btn.on('click', function() {
 		goAjaxPostWithoutLoader('/user/update', $('#detailForm').val());
 		alert('사용자 정보가 업데이트 되었습니다.');
 		$('#content').load('/user/list');
     });
     
     var userDelete_btn = $detailForm.jqxForm('getComponentByName', 'userDelete_btn');    
-    userDelete_btn.off().on('click', function(){
+    userDelete_btn.on('click', function(){
 		goAjaxPostWithoutLoader('/user/delete', $('#detailForm').val());
 		alert('사용자 정보가 삭제 되었습니다.');
 		$('#content').load('/user/list');
@@ -133,7 +133,7 @@ function createRegistForm() {
 	});
 	
 	var addUser_btn = $registForm.jqxForm('getComponentByName', 'addUser_btn');    
-    addUser_btn.off().on('click', function(){
+    addUser_btn.on('click', function(){
 		goAjaxPostWithoutLoader('/user/insert', $('#registForm').val());
 		alert('사용자 정보가 등록 되었습니다.');
 		$('#content').load('/user/list');
