@@ -13,6 +13,10 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	public long getUserListCount(UserVo param) {
+		return userDao.getUserListCount(param);
+	}
+	
 	public List<UserVo> selectUserList(UserVo userVo) {			
 		return userDao.selectUserList(userVo);
 	}

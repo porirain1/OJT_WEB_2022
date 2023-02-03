@@ -5,10 +5,10 @@
 
 <div id="userList">
 	<input type="submit" value="등록" id="jqxSubmitButton" />
-	<div id="dataTable"></div>
+	<div id="dataGrid"></div>
 </div>
 <div id="detailForm" class="forms"></div>
 <div id="registForm" class="forms"></div>
-
-<script type="text/javascript" src="/resources/js/user.js?version=2023"></script>
+<div id="jqxLoader"></div>
+<script type="text/javascript" src="/resources/js/user.js"></script>
 <script type="text/javascript" src="/resources/js/common.js"></script>

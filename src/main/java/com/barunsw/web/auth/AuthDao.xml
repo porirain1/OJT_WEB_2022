@@ -47,7 +47,7 @@
 	
 	<insert id="upsertAuth" parameterType="com.barunsw.web.auth.AuthVo">
 		<choose>
-			<when test="authId == null or authId.equals('')">
+			<when test="authId == null or authId.equals('') and !authName.equals('')">
 				INSERT INTO tb_auth
 					(auth_name)
 				VALUES 

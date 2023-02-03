@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserDao {
-
+	public long getUserListCount(UserVo userVo);
 	public List<UserVo> selectUserList(UserVo userVo);
 	public int insertUser(UserVo userVo);
 	public int deleteUser(UserVo userVo);

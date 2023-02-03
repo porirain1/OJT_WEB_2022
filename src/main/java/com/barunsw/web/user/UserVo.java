@@ -1,8 +1,11 @@
 package com.barunsw.web.user;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class UserVo {
+import com.barunsw.web.base.PageVo;
+
+public class UserVo extends PageVo {
 	private int userNum;
 	private String userId;
 	private String userPasswd;
@@ -77,7 +80,7 @@ public class UserVo {
 	
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 
 }

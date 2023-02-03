@@ -3,67 +3,68 @@ $(document).ready(function () {
 	initData();
 });
 
-function initData() {
-	var data = goAjaxGetWithoutLoader('/user/get');
-	$('#dataTable').jqxDataTable(data, 'userList');
-	var source =
-		{
-			dataType: 'json',
-	        localData: data,
-	     	dataFields: [
-	     		{ name: 'userNum', type: 'number'},
-	     	    { name: 'userId', type: 'string'},
-	     	    { name: 'userPasswd', type: 'string'},
-	     	    { name: 'userName', type:'string'},
-	     	    { name: 'userEmail', type: 'string'},
-	     	    { name: 'userAddress', type:'string'}
-		    ]
-		};
-		
-	var dataAdapter = new $.jqx.dataAdapter(source);
-	$('#dataTable').jqxDataTable({
-		width			: '100%',
-		height			: 'calc(100% - 70px)',
-	 	pageable			: true,
-	 	pagerButtonsCount	: 10,
-	 	theme				: 'darkblue',
-	 	source				: dataAdapter,
-	 	columnsResize		: true,
-	 	sortable			: true,
-	 	columns: [
+function initComponent() {
+	$('#dataGrid').jqxGrid({
+		theme: 'darkblue',
+		source: [],
+		columns: [
 	 		{ text: '회원번호', dataField: 'userNum', width: '20%' },
 	 		{ text: 'ID', dataField: 'userId', width: '20%' },
 	 		{ text: '이름', dataField: 'userName', width: '20%' },
 	 	    { text: '이메일', dataField: 'userEmail', width: '20%' },
 	 	    { text: '주소', dataField: 'userAddress', width: '20%' },
-	 	]
-	}); 	
-}
-function initComponent() {
+	 	],
+	 	width			: '100%',
+		height			: 'calc(100% - 70px)',
+		enabletooltips: true
+		, pageable: true
+        , virtualmode: true
+        , sortable: true
+        , showsortmenuitems: false
+        , pagermode: 'simple'
+        , pagesize : 10
+        , pagerbuttonscount: 10
+        , rendergridrows: function(obj) {
+        	console.log(obj.data);
+        	return obj.data;     
+		}
+	});
+		$('#dataGrid').on('sort', function () {
+		$('#dataGrid').jqxGrid('updatebounddata', 'sort');
+	});
 	
+	$('#jqxLoader').jqxLoader({ width: 100, height: 60, imagePosition: 'top' });
 	$('#jqxSubmitButton').jqxButton({ theme: 'darkblue', width: 150, height: 40	});
 	$('#jqxSubmitButton').on('click', function() {
 		$('#userList').hide();
 		$('#registForm').show();
 	});
 	
-	$('#dataTable').on('rowDoubleClick', function(event) {
+	$('#dataGrid').on('rowdoubleclick', function(event) {
     	var args 	= event.args;
 		var row 	= args.row;
+		console.log(row.bounddata.userId);
     	$('#userList').hide();
 		$('#detailForm').show();
 		$('#detailForm').val({
-			'userNum' : row.userNum,
-			'userId' : row.userId,
-			'userPasswd' : row.userPasswd,
-			'userName' : row.userName,
-			'userEmail' : row.userEmail,
-			'userAddress' : row.userAddress
-		});
-  	});
+			'userNum' : row.bounddata.userNum,
+			'userId' : row.bounddata.userId,
+			'userPasswd' : row.bounddata.userPasswd,
+			'userName' : row.bounddata.userName,
+			'userEmail' : row.bounddata.userEmail,
+			'userAddress' : row.bounddata.userAddress
+		}); 
+  	}); 
   	$('#userList').show();
 	createDetailForm();
   	createRegistForm();
+}
+
+function initData() {
+	$('#dataGrid').jqxGrid('gotopage', 0);
+	var param = {};
+	$('#dataGrid').jqxGrid('source', getPagingDataAdapter(param, '/user/get', 'userList'));
+	$('#dataGrid').jqxGrid('clearselection');
 }
 
 function createDetailForm() {
@@ -93,14 +94,14 @@ function createDetailForm() {
 	
 	var userUpdate_btn = $detailForm.jqxForm('getComponentByName', 'userUpdate_btn');    
     userUpdate_btn.on('click', function() {
-		goAjaxPostWithoutLoader('/user/update', $('#detailForm').val());
+		goAjaxPost('/user/update', $('#detailForm').val());
 		alert('사용자 정보가 업데이트 되었습니다.');
 		$('#content').load('/user/list');
     });
     
     var userDelete_btn = $detailForm.jqxForm('getComponentByName', 'userDelete_btn');    
     userDelete_btn.on('click', function(){
-		goAjaxPostWithoutLoader('/user/delete', $('#detailForm').val());
+		goAjaxPost('/user/delete', $('#detailForm').val());
 		alert('사용자 정보가 삭제 되었습니다.');
 		$('#content').load('/user/list');
     });	
@@ -134,7 +135,7 @@ function createRegistForm() {
 	
 	var addUser_btn = $registForm.jqxForm('getComponentByName', 'addUser_btn');    
     addUser_btn.on('click', function(){
-		goAjaxPostWithoutLoader('/user/insert', $('#registForm').val());
+		goAjaxPost('/user/insert', $('#registForm').val());
 		alert('사용자 정보가 등록 되었습니다.');
 		$('#content').load('/user/list');
     });	
