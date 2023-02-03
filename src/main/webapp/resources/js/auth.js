@@ -64,6 +64,7 @@ function initComponent() {
 	
 	var userAuthForm_btn = $authUserForm.jqxForm('getComponentByName', 'userAuthForm_btn');
 	userAuthForm_btn.on('click', function () {			
+		console.log('ub_btn click', $('#authUserForm').val())
 		goAjaxPostWithoutLoader('/auth/upsert', $('#authUserForm').val());
 		alert('권한이 등록/수정 되었습니다.');
 	   	$('#content').load('/auth/list');
@@ -151,7 +152,7 @@ function initEvent() {
 	$('#authUserList').on('rowDoubleClick', function (event) {
 		var args 	= event.args;
 		var row 	= args.row;
-    	console.log(JSON.stringify(row));    	
+    	//console.log(JSON.stringify(row));    	
     	$('#authUserList').data('authId', row.authId);
 		$('#authUserList').data('userId', row.userId);
 		$('#authUserList').data('uid', row.uid);   	
@@ -205,9 +206,9 @@ function initEvent() {
 	
 	$('#ok').on('click', function () {
 		var authData = $('#windowTable').data();
-
 		goAjaxPostWithoutLoader('/auth/insert/userAtuh', {userId : authData.userId, authId : authData.authId});
 		alert('사용자 권한이 추가되었습니다.');
+		
 		$('#authUserList').jqxDataTable('addRow', authData, {
 			userName 	: authData.userName,
 			userId		: authData.userId

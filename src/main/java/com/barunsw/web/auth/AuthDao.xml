@@ -56,7 +56,6 @@
 			<when test="authId >= 0">
 				UPDATE tb_auth
 				SET 
-					auth_id 		= CAST(#{authId} AS INTEGER),
 					auth_name 		= #{authName}
 				WHERE 
 					auth_id 		= CAST(#{authId} AS INTEGER)
