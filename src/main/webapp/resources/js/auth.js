@@ -54,7 +54,6 @@ function initComponent() {
 	 	]
 	});
 	
-		
 	var input = $authUserForm.jqxForm('getComponentByName', 'authId');
 	input.jqxInput({disabled : true});
 			
