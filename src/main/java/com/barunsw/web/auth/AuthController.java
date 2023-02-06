@@ -23,7 +23,7 @@ public class AuthController {
 		//System.out.println("select auth \n"+ authService.authList(new AuthVo()));
 		return "/auth/list";
 	}
-	
+		
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody List<AuthVo> get(AuthVo param) {
 		List<AuthVo> authList = authService.authList(new AuthVo());

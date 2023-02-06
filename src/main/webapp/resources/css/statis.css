@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#statishBox {
+	height: 100%;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#checkBox {
+	padding : 15px 0px 0px 0px;
+	display : flex;
+	justify-content: space-between;
+}
+
+#chartContainer {
+	padding : 15px 0px 0px 0px;
+	width	: 100%;
+	height	: 85%;
+}

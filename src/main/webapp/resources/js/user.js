@@ -29,7 +29,8 @@ function initComponent() {
         	return obj.data;     
 		}
 	});
-		$('#dataGrid').on('sort', function () {
+	
+	$('#dataGrid').on('sort', function () {
 		$('#dataGrid').jqxGrid('updatebounddata', 'sort');
 	});
 	

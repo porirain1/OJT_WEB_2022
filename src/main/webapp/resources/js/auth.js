@@ -63,7 +63,7 @@ function initComponent() {
 	$('#deleteAuthId_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	
 	var userAuthForm_btn = $authUserForm.jqxForm('getComponentByName', 'userAuthForm_btn');
-	userAuthForm_btn.on('click', function () {
+	userAuthForm_btn.off('click').on('click', function () {
 		var authData = $('#authUserForm').val();
 		if (authData.authName == '') {
 			alert("권한명을 입력하세요");
@@ -76,7 +76,7 @@ function initComponent() {
 	$('#addAuthUser_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	$('#deleteAuthUser_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	
-	$('#jqxwindow').jqxWindow({ 
+	$('#jqxwindow').jqxWindow({
 		width		: 450, 
 		height		: 430,
 		theme		: 'darkblue',
@@ -147,7 +147,7 @@ function initEvent() {
 				'authName'	: oneData[0].authName
 		});
 			alert('권한을 수정해 주세요.'); 
-	});
+	}); 
 		
 	// 권한 삭제
 	$('#deleteAuthId_btn').on('click', function () {
@@ -170,7 +170,7 @@ function initEvent() {
 	// 사용자 권한 삭제
 	$('#deleteAuthUser_btn').on('click', function () {
 		var authDeleteData = $('#authUserList').data();
-		console.log('authDeleteData : ', authDeleteData);
+		console.log('authDeleteData : ', authDeleteData.uid);
 		$('#authUserList').jqxDataTable('deleteRow', authDeleteData.uid)
 		goAjaxPost('/auth/delete/userAuth', {userId : authDeleteData.userId});
 		alert('사용자 권한 삭제되었습니다.');
