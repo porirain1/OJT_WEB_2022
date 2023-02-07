@@ -25,7 +25,7 @@ public class AuthController {
 	}
 		
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public @ResponseBody List<AuthVo> get(AuthVo param) {
+	public @ResponseBody List<AuthVo> get() {
 		List<AuthVo> authList = authService.authList(new AuthVo());
 		return authList;
 	}

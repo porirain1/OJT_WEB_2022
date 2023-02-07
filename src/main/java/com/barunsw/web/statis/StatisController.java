@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.barunsw.web.auth.AuthService;
+import com.barunsw.web.auth.AuthVo;
+
 @Controller
 @RequestMapping("/statis")
 public class StatisController {
 	
 	@Autowired
 	private StatisService statisService;
+
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String statisIndex() {
@@ -22,7 +26,7 @@ public class StatisController {
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public @ResponseBody List<StatisVo> get(StatisVo param) {
+	public @ResponseBody List<StatisVo> get() {
 		List<StatisVo> statisList = statisService.statisList(new StatisVo());
 		return statisList;
 	}

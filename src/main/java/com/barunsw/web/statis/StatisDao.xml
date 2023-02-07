@@ -21,7 +21,7 @@
 		ORDER BY main.auth_id ASC 
 	</select>
 	
-	<select id="authOne" resultType="com.barunsw.web.auth.AuthVo">
+	<select id="statishOne" resultType="com.barunsw.web.auth.AuthVo">
 		SELECT
 			auth_id, auth_name
 		FROM
@@ -29,69 +29,5 @@
 		WHERE 
 			auth_id = CAST(#{authId} AS INTEGER)
 	</select>
-	
-	<select id="userAuthList" resultType="com.barunsw.web.auth.AuthVo">
-		SELECT 
-	 		userM.user_name, auth.auth_name, main.* 
-		FROM (
-				SELECT
-					auth_id, user_id
-				FROM
-					tb_user_auth
-				WHERE
-					auth_id = CAST(#{authId} AS INTEGER) ) main 
-		LEFT OUTER JOIN tb_auth auth on main.auth_id = auth.auth_id  
-		LEFT OUTER JOIN tb_user userM on main.user_id = userM.user_id
-	</select>
-	
-	<select id="userNoAuthList" resultType="com.barunsw.web.auth.AuthVo">
-		SELECT 
-			user_id , user_name
-		FROM	
-			tb_user
-		WHERE
-			user_id NOT IN (SELECT user_id 
-							FROM tb_user_auth
-							WHERE auth_id = CAST(#{authId} AS INTEGER))
-	</select>
-	
-	<insert id="upsertAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		<choose>
-			<when test="authId == null or authId.equals('') and !authName.equals('')">
-				INSERT INTO tb_auth
-					(auth_name)
-				VALUES 
-					(#{authName})			
-			</when>
-			<when test="authId >= 0">
-				UPDATE tb_auth
-				SET 
-					auth_name 		= #{authName}
-				WHERE 
-					auth_id 		= CAST(#{authId} AS INTEGER)
-				</when>
-			</choose>
-	</insert>
-	
-	<insert id="insertUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		INSERT INTO tb_user_auth 
-			(auth_id, user_id)
-		VALUES 
-			(CAST(#{authId} AS INTEGER), #{userId})
-	</insert>
-
-	<delete id="deleteAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		DELETE FROM 
-			tb_auth
-		WHERE 
-			auth_id 		= CAST(#{authId} AS INTEGER)
-	</delete>
-	
-	<delete id="deleteUserAuth" parameterType="com.barunsw.web.auth.AuthVo">
-		DELETE FROM 
-			tb_user_auth
-		WHERE 
-			user_id 		= #{userId}
-	</delete>
 	
 </mapper>
