@@ -5,20 +5,59 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class HistoryVo {
 	
-	private String historyNow;
+	private String mode;
+	private String fromDate;
+	private String toDate;
 	private int historyCount;
+	private String historyNow;
 	private String historyIp;
 	private String historyMenu;
 	private String menuUrl;
 	
 	public HistoryVo() {}
 	
-	public HistoryVo(String historyNow, int historyCount, String historyIp, String historyMenu, String menuUrl) {
-		this.historyNow = historyNow;
+	public HistoryVo(String mode, String fromDate, String toDate, int historyCount, String historyNow, String historyIp,
+			String historyMenu, String menuUrl) {
+		this.mode = mode;
+		this.fromDate = fromDate;
+		this.toDate = toDate;
 		this.historyCount = historyCount;
+		this.historyNow = historyNow;
 		this.historyIp = historyIp;
 		this.historyMenu = historyMenu;
 		this.menuUrl = menuUrl;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public String getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
+
+	public int getHistoryCount() {
+		return historyCount;
+	}
+	
+	public void setHistoryCount(int historyCount) {
+		this.historyCount = historyCount;
 	}
 
 	public String getHistoryNow() {
@@ -27,14 +66,6 @@ public class HistoryVo {
 
 	public void setHistoryNow(String historyNow) {
 		this.historyNow = historyNow;
-	}
-
-	public int getHistoryCount() {
-		return historyCount;
-	}
-
-	public void setHistoryCount(int historyCount) {
-		this.historyCount = historyCount;
 	}
 
 	public String getHistoryIp() {

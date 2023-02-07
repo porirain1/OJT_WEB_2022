@@ -21,43 +21,24 @@ public class HistoryController {
 		return "/history/list";
 	}
 	
-	@RequestMapping(value="/data", method = RequestMethod.GET)
-	@ResponseBody
-	public List<HistoryVo> data() {
-		List<HistoryVo> historyList = historyService.selectHistoryList(new HistoryVo());		
-		return historyList;
-	}
-	
 	@RequestMapping(value="/menu", method = RequestMethod.GET)
 	@ResponseBody
 	public List<HistoryVo> menu() {
-		List<HistoryVo> historyList = historyService.selectHistoryMenu(new HistoryVo());		
+		List<HistoryVo> historyList = historyService.selectHistoryMenu(new HistoryVo());
+		return historyList;
+	}
+
+	@RequestMapping(value="/data", method = RequestMethod.GET)
+	@ResponseBody
+	public List<HistoryVo> data(HistoryVo history) {
+		List<HistoryVo> historyList = historyService.selectHistoryList(history);
 		return historyList;
 	}
 	
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
-	public @ResponseBody HistoryVo insert(@RequestBody HistoryVo history) {
+	@ResponseBody
+	public HistoryVo insert(@RequestBody HistoryVo history) {
 		historyService.insertHistory(history);
 		return history;
-	}
-	
-	@RequestMapping(value="/update", method = RequestMethod.POST)
-	public @ResponseBody HistoryVo update(@RequestBody HistoryVo history) {
-		historyService.updateHistory(history);
-		return history;
-	}
-	
-	@RequestMapping(value="/delete", method = RequestMethod.GET)
-	@ResponseBody
-	public HistoryVo delete(HistoryVo history) {
-		historyService.deleteHistory(history);
-		return history;
-	}
-	
-	@RequestMapping(value="/test", method = RequestMethod.GET)
-	@ResponseBody
-	public List<HistoryVo> test(HistoryVo history) {
-		List<HistoryVo> historyList = historyService.test(history);
-		return historyList;
 	}
 }
