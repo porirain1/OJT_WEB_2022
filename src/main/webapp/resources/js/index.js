@@ -47,6 +47,7 @@ function initComponent() {
             	, {id:'menu_group', label:'그룹 관리', value:'/group/list'}
            		, {id:'menu_manage', label:'메뉴 관리', value:'/menu/list'}
             	, {id:'menu_authorization', label:'권한 관리', value:'/auth/list'}
+            	, {id:'menu_authstatis', label:'권한 통계', value:'/statis/list'}
             	, {id:'menu_code', label:'코드 관리', value:'/code/list'}
             	, {id:'menu_board', label:'이력 조회', value:''}
             	, {id:'menu_history', label:'통계 조회', value:'/history/list'}
@@ -76,6 +77,7 @@ function initEvent() {
 		, menu_group: '/group/list'
 		, menu_manage: '/menu/list'
 		, menu_authorization: '/auth/list'
+		, menu_authstatis:'/statis/list'
 		, menu_code: null
 		, menu_history: null
 		, menu_board: null
