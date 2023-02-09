@@ -6,19 +6,19 @@
 		SELECT 
 		 	main.auth_name,
 		 	main.auth_id,
-		 	COUNT(*)
+		 	count(main.user_id)
 		 FROM
 			(SELECT 
-				a.auth_id,
-				a.user_id,
-				b.auth_name
+				a.auth_name,
+				b.auth_id,
+				b.user_id
 			FROM 
-				tb_user_auth a
+				tb_auth a
 			LEFT OUTER JOIN
-				tb_auth b
+				tb_user_auth b
 			on a.auth_id = b.auth_id) main
 		GROUP BY main.auth_name, main.auth_id
-		ORDER BY main.auth_id ASC 
+		ORDER BY main.auth_id ASC	
 	</select>
 	
 	<select id="statishOne" resultType="com.barunsw.web.auth.AuthVo">

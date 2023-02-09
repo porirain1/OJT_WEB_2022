@@ -1,94 +1,120 @@
 $(document).ready(function () {
 	initComponent();
 	initData();
-	initEvent();
 });
 
 function initComponent() {
 	
 	var authData = goAjaxGet('/auth/get');
-	
-	
-	for (var i = 0; i < authData.length; i++) {
+
+/*	for (var i = 0; i < authData.length; i++) {
 		var createCheckBox = document.createElement('div');
 		createCheckBox.id = 'jqxcheckbox' + i;
 		createCheckBox.setAttribute('name', 'checkBox');
-		createCheckBox.setAttribute('onclick', 'checkSelectAll()');
 		createCheckBox.innerHTML = authData[i].authName;
 		$('#checkBox').append(createCheckBox);
 		console.log('forforfor : ', i);
 	}
-	$('#selectAll').jqxCheckBox({ width: 120, height: 25, theme: 'darkblue' }); 
 	for (var i = 0; i < authData.length; i++) {
 		$('#jqxcheckbox' + i).jqxCheckBox({ width: 120, height: 25, theme: 'darkblue' });
+	} */
+	$('#checkBoxAll').jqxCheckBox({ width: 120, height: 25, theme: 'darkblue', checked: true }); 
+	
+	var items = [];
+	var value = [];
+	for(let i = 0; i < authData.length; i++) {
+	   var item = {}
+	   item.label = authData[i].authName;
+	   item.value = i;
+	   items.push(item);
+	   value.push(i);
 	}
+	console.log('items', items);
+	console.log('value', value);
+	
+	$('#checkBoxGroup').jqxCheckBoxGroup({
+		change: function(item) {
+			console.log('12312',item.value);
+			if (item.checked) {
+				$('#chartContainer').jqxChart('showSerie', item.value, 0, NaN);
+			} else {
+				$('#chartContainer').jqxChart('hideSerie', item.value, 0, NaN);
+			}
+			console.log('item : ', item);
+			console.log('group length : ', $('#checkBoxGroup').val());
+			if( $('#checkBoxGroup').val().length == items.length ) {
+				$('#checkBoxAll').jqxCheckBox('check');
+			}
+			else if ( $('#checkBoxGroup').val().length < items.length ) {
+				$('#checkBoxAll').jqxCheckBox('uncheck');
+			}
+		},
+		items	: items,
+		layout	: 'horizontal',
+		theme	: 'darkblue',
+		value	: value
+	});
+	
+	$('#checkBoxAll').on('change', function(event) {
+		var checked = event.args.checked
+		console.log('checkBoxAll event');
+		if ( checked ) {
+			var chkArr = value.filter(x => !$('#checkBoxGroup').val().includes(x));
+			console.log('chkArr : ',chkArr);
+			chkArr.forEach(function (item) {
+				$('#checkBoxGroup').jqxCheckBoxGroup('checkValue', item);
+			});
+		} 
+		else if ( $('#checkBoxGroup').val().length == items.length ) {
+			$('#checkBoxGroup').jqxCheckBoxGroup('uncheckAll');  
+		}
+	});
 }
 
 function initData() {
-
 	var allData = goAjaxGet('/statis/get');
-	//var data2 = JSON.stringify(data)
 	console.log('statis Data2 : ', allData);
-
+	//var parse = JSON.stringify(allData).replace(/},{/gi, ',')
+	
+	var reParse =[]
+	for(let i = 0; i<allData.length; i++){
+		var item = {}
+		item[allData[i].authName] = allData[i].count; 	
+		item['권한 명'] = allData[i].authName;
+		console.log('item :', item)
+		reParse.push(item);
+	}
+	console.log('reparse',reParse); 
+	
+	var statisSeries = [];	
+	for (let i = 0; i < allData.length; i++) {
+		var group = {};
+		var key = allData[i].authName;
+		group.type = 'column';
+		group.series = [{dataField : key, displayText: key}];
+		statisSeries.push(group);
+	}
+	console.log('statis : ',statisSeries);
+	
 	// prepare jqxChart settings
 	var settings = {
     	title: null,
         description: null,
         padding: { left: 20, top: 20, right: 20, bottom: 20 },
-        source: allData,
-        categoryAxis:{
-        	dataField: 'authName',
+        source: reParse,
+        xAxis:{
+        	dataField: '권한 명',
             showGridLines: false
 		},
+		valueAxis: { 
+			minValue	: 0,
+			maxValue	: 20,
+			unitInterval: 5,
+			description	: '사용자 수'
+		},
         colorScheme: 'scheme01',
-        seriesGroups:
-        [{
-			type: 'column',
-            columnsGapPercent: 30,
-            seriesGapPercent: 0,
-            valueAxis:
-            {
-				minValue: 0,
-            	maxValue: 20,
-                unitInterval: 5,
-                description: '사용자 수'
-			},
-            series:[
-				{ dataField: 'count', displayText: '사용자 수' },
-            ]
-		}]
+        seriesGroups: statisSeries
 	};
-            
 	// select the chartContainer DIV element and render the chart.
 	$('#chartContainer').jqxChart(settings);
-}
-
-function initEvent() {
-	
-}
-
-function checkSelectAll()  {
-  // 전체 체크박스
-  const checkboxes 	= document.querySelectorAll('div[name="checkBox"]');
-  // 선택된 체크박스
-  const checked 	= document.querySelectorAll('div[name="checkBox"]:checked');
-  // select all 체크박스
-  const selectAll	= document.querySelector('div[name="selectAll"]');
-  
-  if(checkboxes.length === checked.length)  {
-    selectAll.checked = true;
-  }else {
-    selectAll.checked = false;
-  }
-  console.log('4567');
-}
-
-function selectAll(selectAll)  {
-  const checkboxes 
-     = document.getElementsByName('checkBox');
-  
-  checkboxes.forEach((checkBox) => {
-    checkBox.checked = selectAll.checked
-  })
-  console.log('1234');
 }

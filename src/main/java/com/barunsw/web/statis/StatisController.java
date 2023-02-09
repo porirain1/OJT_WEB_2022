@@ -28,6 +28,8 @@ public class StatisController {
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody List<StatisVo> get() {
 		List<StatisVo> statisList = statisService.statisList(new StatisVo());
+		//System.out.println("param : " + param);
+		System.out.println("statisList : " + statisList);
 		return statisList;
 	}
 	

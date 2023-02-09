@@ -109,7 +109,7 @@ function initEvent() {
 	// 3. 화면에 뿌려준다
 	$('#authList').on('rowDoubleClick', function (event) {
 		var rows = event.args.row;
-		console.log(rows.authId);
+		console.log(rows);
 		
 		$('#authList').data('authId', rows.authId);// -> jquery.data
 		$('#authList').data('authName', rows.authName);
