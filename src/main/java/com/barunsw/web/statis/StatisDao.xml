@@ -21,13 +21,4 @@
 		ORDER BY main.auth_id ASC	
 	</select>
 	
-	<select id="statishOne" resultType="com.barunsw.web.auth.AuthVo">
-		SELECT
-			auth_id, auth_name
-		FROM
-			tb_auth
-		WHERE 
-			auth_id = CAST(#{authId} AS INTEGER)
-	</select>
-	
 </mapper>

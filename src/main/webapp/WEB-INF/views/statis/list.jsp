@@ -5,8 +5,8 @@
 
 <div id="statishBox">
 	<div id="checkBox">
-		<div id="checkBoxAll">전체선택</div>
-		<div id="checkBoxGroup"></div>
+		<div id="checkBoxAll" name="checkBoxAll">전체선택</div>
+		<div id="checkBoxGroup" name="chk"></div>
 	</div>	
 	<div id="chartContainer"></div>
 </div>

@@ -4,25 +4,25 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class AuthVo {
-	private String authId;
+	private int authId;
 	private String authName;
 	private String userId;
 	private String userName;
 	
 	public AuthVo () {}
 	
-	public AuthVo(String authId, String authName, String userId, String userName) {
+	public AuthVo(int authId, String authName, String userId, String userName) {
 		this.authId = authId;
 		this.authName = authName;
 		this.userId = userId;
 		this.userName = userName;
 	}
 		
-	public String getAuthId() {
+	public int getAuthId() {
 		return authId;
 	}
 
-	public void setAuthId(String authId) {
+	public void setAuthId(int authId) {
 		this.authId = authId;
 	}
 

@@ -36,8 +36,8 @@ function initComponent() {
 	$("#jqxLoader").jqxLoader({ width: 100, height: 60, imagePosition: 'top' });
 	// 오른쪽
 	var template = [
-		  { name: 'authId', bind: 'authId', type: 'text', label: '권한ID', labelWidth: '100px', width: '100%' }
-		, { bind: 'authName', type: 'text', label: '권한명', labelWidth: '100px', width: '100%' }
+		  //{ name: 'authId', bind: 'authId', type: 'text', label: '권한ID', labelWidth: '100px', width: '100%' }
+		 { bind: 'authName', type: 'text', label: '권한명', labelWidth: '100px', width: '100%' }
 		, { name: 'userAuthForm_btn', type: 'button', text: '저장', width : '90px', height : '30px', align : 'right' }
 	];
 		
@@ -45,7 +45,7 @@ function initComponent() {
 	$('#authUserForm').jqxForm({ template: template, theme: 'darkblue', padding: { left: 10, top: 10, right: 10, bottom: 10 } }); 
 	$('#authUserList').jqxDataTable({
 		width			: '100%',
-	 	height			: 'calc(100% - 210px)',
+	 	height			: '76%',
 	 	theme			: 'darkblue',
 	 	columnsResize	: true,
 	 	sortable		: true,
@@ -55,8 +55,8 @@ function initComponent() {
 	 	]
 	});
 	
-	var input = $authUserForm.jqxForm('getComponentByName', 'authId');
-	input.jqxInput({disabled : true});
+//	var input = $authUserForm.jqxForm('getComponentByName', 'authId');
+//	input.jqxInput({disabled : true}); 
 			
 	$('#insertAuthId_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });
 	$('#updateAuthId_btn').jqxButton({ theme: 'darkblue', width: 160, height: 40 });

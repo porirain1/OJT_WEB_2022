@@ -4,23 +4,23 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class StatisVo {
-	private String authId;
+	private int authId;
 	private String authName;
 	private int count;
 	
 	public StatisVo () {}
-	
-	public StatisVo(String authId, String authName, int count) {
+		
+	public StatisVo(int authId, String authName, int count) {
 		this.authId = authId;
 		this.authName = authName;
 		this.count = count;
 	}
 		
-	public String getAuthId() {
+	public int getAuthId() {
 		return authId;
 	}
 
-	public void setAuthId(String authId) {
+	public void setAuthId(int authId) {
 		this.authId = authId;
 	}
 
