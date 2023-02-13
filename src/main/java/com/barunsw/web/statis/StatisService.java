@@ -51,4 +51,26 @@ public class StatisService {
 		}
 		return chartData;
 	}
+	
+	public ArrayList<HashMap<String, Object>> seriesData(StatisVo statisVo) {
+
+		List<StatisVo> list = statisDao.statisList(statisVo);
+		ArrayList<HashMap<String, Object>> seriesData = new ArrayList<HashMap<String, Object>>();
+		
+		for(int i = 0; i < list.size(); i++) {
+			HashMap<String, Object> items = new HashMap<>();
+			HashMap<String, Object> items2 = new HashMap<>();
+			List series = new ArrayList();
+			
+			items.put("type","column");
+			items.put("series", series);
+			items2.put("dataField",list.get(i).getAuthName());
+			items2.put("displayText",list.get(i).getAuthName());
+			
+			series.add(items2);
+			seriesData.add(items);
+			System.out.println("items : "+items);
+		}
+		return seriesData;
+	}
 }

@@ -51,20 +51,12 @@ function initComponent() {
 }
 
 function initData() {
-	var allData = goAjaxGet('/statis/get');
+		
+	var seriesData = goAjaxGet('/statis/get/seriesData');
+	console.log('seriesData : ', seriesData);
+	
 	var chartData = goAjaxGet('/statis/get/chartData');
-	console.log('allData : ', allData);
 	console.log('chartData : ', chartData);
-
-	var statisSeries = [];	
-	for (let i = 0; i < allData.length; i++) {
-		var group = {};
-		var key = allData[i].authName;
-		group.type = 'column';
-		group.series = [{dataField : key, displayText: key}];
-		statisSeries.push(group);
-	}
-	console.log('statisSeries : ',statisSeries);
 	
 	// prepare jqxChart settings
 	var settings = {
@@ -77,14 +69,14 @@ function initData() {
         	dataField: '권한 명',
             showGridLines: false
 		},
-		valueAxis: { 
+		valueAxis: {
 			minValue	: 0,
 			maxValue	: 20,
 			unitInterval: 5,
 			description	: '사용자 수'
 		},
         colorScheme: 'scheme01',
-        seriesGroups: statisSeries
+        seriesGroups: seriesData
 	};
 	// select the chartContainer DIV element and render the chart.
 	$('#chartContainer').jqxChart(settings);
