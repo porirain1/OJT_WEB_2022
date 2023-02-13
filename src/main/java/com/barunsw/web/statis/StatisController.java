@@ -32,16 +32,16 @@ public class StatisController {
 	}
 	
 	@RequestMapping(value = "/get/checkBoxData", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<HashMap<String, String>> getcheckBoxData() {
-		ArrayList<HashMap<String, String>>  checkBoxData = statisService.checkBoxData(null);
+	public @ResponseBody ArrayList<HashMap<String, Object>> getcheckBoxData() {
+		ArrayList<HashMap<String, Object>>  checkBoxData = statisService.checkBoxData(null);
 		//System.out.println("param : " + param);		
 		System.out.println("checkBoxData : " + checkBoxData);
 		return checkBoxData;
 	}
 	
 	@RequestMapping(value = "/get/chartData", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<HashMap<String, String>> getchartData() {
-		ArrayList<HashMap<String, String>>  chartData = statisService.chartData(null);
+	public @ResponseBody ArrayList<HashMap<String, Object>> getchartData() {
+		ArrayList<HashMap<String, Object>>  chartData = statisService.chartData(null);
 		//System.out.println("param : " + param);		
 		System.out.println("chartData : " + chartData);
 		return chartData;

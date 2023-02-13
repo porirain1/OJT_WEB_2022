@@ -18,16 +18,16 @@ public class StatisService {
 		return statisDao.statisList(statisVo);
 	}
 	
-	public ArrayList<HashMap<String, String>> checkBoxData(StatisVo statisVo) {
+	public ArrayList<HashMap<String, Object>> checkBoxData(StatisVo statisVo) {
 
 		List<StatisVo> list = statisDao.statisList(statisVo);
-		ArrayList<HashMap<String, String>> checkBoxData = new ArrayList<HashMap<String, String>>();
+		ArrayList<HashMap<String, Object>> checkBoxData = new ArrayList<HashMap<String, Object>>();
 		
 		for(int i = 0; i < list.size(); i++) {
-			HashMap<String, String> items = new HashMap<>();
+			HashMap<String, Object> items = new HashMap<>();
 
 			items.put("label",list.get(i).getAuthName());
-			items.put("value",String.valueOf(i));
+			items.put("value",i);
 			
 			checkBoxData.add(items);
 			System.out.println("items : "+items);
@@ -35,21 +35,20 @@ public class StatisService {
 		return checkBoxData;
 	}
 	
-	public ArrayList<HashMap<String, String>> chartData(StatisVo statisVo) {
+	public ArrayList<HashMap<String, Object>> chartData(StatisVo statisVo) {
 
 		List<StatisVo> list = statisDao.statisList(statisVo);
-		ArrayList<HashMap<String, String>> chartData = new ArrayList<HashMap<String, String>>();
+		ArrayList<HashMap<String, Object>> chartData = new ArrayList<HashMap<String, Object>>();
 		
 		for(int i = 0; i < list.size(); i++) {
-			HashMap<String, String> items = new HashMap<>();
+			HashMap<String, Object> items = new HashMap<>();
 
 			items.put("권한 명",list.get(i).getAuthName());
-			items.put(list.get(i).getAuthName() ,String.valueOf(list.get(i).getCount()));
+			items.put(list.get(i).getAuthName() , list.get(i).getCount());
 			
 			chartData.add(items);
 			System.out.println("items : "+items);
 		}
-		
 		return chartData;
 	}
 }

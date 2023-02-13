@@ -9,19 +9,14 @@ function initComponent() {
 	console.log('checkBoxData : ',checkBoxData)
 	
 	$('#checkBoxAll').jqxCheckBox({ width: 120, height: 25, theme: 'darkblue', checked: true }); 
-	
-/*	var items = [];
+
 	var value = [];
 	
-	for(var i = 0; i < authData.length; i++) {
-	   var item = {}
-	   item.label = parseInt(authData2[i].value);
-	   item.value = i;
-	   items.push(item);
+	for(var i = 0; i < checkBoxData.length; i++) {
 	   value.push(i);
 	}
-	console.log('items : ', items);
-	console.log('value : ', value);*/
+	
+	console.log('value : ', value);
 	
 	$('#checkBoxGroup').jqxCheckBoxGroup({
 		change: function(item) {
@@ -42,6 +37,7 @@ function initComponent() {
 		items	: checkBoxData,
 		layout	: 'horizontal',
 		theme	: 'darkblue',
+		value	: value
 	});
 	
 	$('#checkBoxAll').on('click', function() {
@@ -61,7 +57,7 @@ function initData() {
 	console.log('chartData : ', chartData);
 
 	var statisSeries = [];	
-	for (var i = 0; i < allData.length; i++) {
+	for (let i = 0; i < allData.length; i++) {
 		var group = {};
 		var key = allData[i].authName;
 		group.type = 'column';
