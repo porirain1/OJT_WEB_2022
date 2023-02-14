@@ -18,27 +18,26 @@ public class StatisService {
 		return statisDao.statisList(statisVo);
 	}
 	
-	public ArrayList<HashMap<String, Object>> checkBoxData(StatisVo statisVo) {
-
-		List<StatisVo> list = statisDao.statisList(statisVo);
-		ArrayList<HashMap<String, Object>> checkBoxData = new ArrayList<HashMap<String, Object>>();
+	public List<StatisVo> checkBoxData() {
 		
-		for(int i = 0; i < list.size(); i++) {
-			HashMap<String, Object> items = new HashMap<>();
-
-			items.put("label",list.get(i).getAuthName());
-			items.put("value",i);
-			
-			checkBoxData.add(items);
-			System.out.println("items : "+items);
-		}
-		return checkBoxData;
+//		ArrayList<HashMap<String, Object>> checkBoxData = new ArrayList<HashMap<String, Object>>();
+//		
+//		for(int i = 0; i < list.size(); i++) {
+//			HashMap<String, Object> items = new HashMap<>();
+//
+//			items.put("label", list.get(i).getAuthName());
+//			items.put("value", i);
+//			
+//			checkBoxData.add(items);
+//			String.format("items :  %s", items);
+//		}
+		return statisDao.statisList(new StatisVo());
 	}
 	
-	public ArrayList<HashMap<String, Object>> chartData(StatisVo statisVo) {
+	public List<HashMap<String, Object>> chartData(StatisVo statisVo) {
 
 		List<StatisVo> list = statisDao.statisList(statisVo);
-		ArrayList<HashMap<String, Object>> chartData = new ArrayList<HashMap<String, Object>>();
+		List<HashMap<String, Object>> chartData = new ArrayList<HashMap<String, Object>>();
 		
 		for(int i = 0; i < list.size(); i++) {
 			HashMap<String, Object> items = new HashMap<>();
@@ -47,30 +46,33 @@ public class StatisService {
 			items.put(list.get(i).getAuthName() , list.get(i).getCount());
 			
 			chartData.add(items);
-			System.out.println("items : "+items);
+			String.format("items : %s", items);
 		}
 		return chartData;
 	}
 	
-	public ArrayList<HashMap<String, Object>> seriesData(StatisVo statisVo) {
+	public List<HashMap<String, Object>> seriesData(StatisVo statisVo) {
 
 		List<StatisVo> list = statisDao.statisList(statisVo);
-		ArrayList<HashMap<String, Object>> seriesData = new ArrayList<HashMap<String, Object>>();
+		List<HashMap<String, Object>> seriesData = new ArrayList<HashMap<String, Object>>();
 		
 		for(int i = 0; i < list.size(); i++) {
-			HashMap<String, Object> items = new HashMap<>();
-			HashMap<String, Object> items2 = new HashMap<>();
+			HashMap<String, Object> oneSeries = new HashMap<>();
+			
+			HashMap<String, Object> option = new HashMap<>();
+			option.put("dataField",list.get(i).getAuthName());
+			option.put("displayText",list.get(i).getAuthName());
+			
 			List series = new ArrayList();
+			series.add(option);
 			
-			items.put("type","column");
-			items.put("series", series);
-			items2.put("dataField",list.get(i).getAuthName());
-			items2.put("displayText",list.get(i).getAuthName());
+			oneSeries.put("type","column");
+			oneSeries.put("series", series);
 			
-			series.add(items2);
-			seriesData.add(items);
-			System.out.println("items : "+items);
+			seriesData.add(oneSeries);
+			String.format("oneSeries : %s", oneSeries);
 		}
+		
 		return seriesData;
 	}
 }

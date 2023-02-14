@@ -7,6 +7,8 @@ public class StatisVo {
 	private int authId;
 	private String authName;
 	private int count;
+	private String label;
+	private int value;
 	
 	public StatisVo () {}
 		
@@ -39,6 +41,22 @@ public class StatisVo {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 }

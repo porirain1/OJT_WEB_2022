@@ -27,32 +27,25 @@ public class StatisController {
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody List<StatisVo> get() {
 		List<StatisVo> statisList = statisService.statisList(new StatisVo());
-		//System.out.println("param : " + param);		
 		return statisList;
 	}
 	
 	@RequestMapping(value = "/get/checkBoxData", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<HashMap<String, Object>> getCheckBoxData() {
-		ArrayList<HashMap<String, Object>>  checkBoxData = statisService.checkBoxData(null);
-		//System.out.println("param : " + param);		
-		System.out.println("checkBoxData : " + checkBoxData);
-		return checkBoxData;
+	public @ResponseBody List<StatisVo> getCheckBoxData() {
+		return statisService.checkBoxData();
 	}
 	
 	@RequestMapping(value = "/get/chartData", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<HashMap<String, Object>> getChartData() {
-		ArrayList<HashMap<String, Object>>  chartData = statisService.chartData(null);
-		//System.out.println("param : " + param);		
-		System.out.println("chartData : " + chartData);
-		return chartData;
+	public @ResponseBody List<HashMap<String, Object>> getChartData() {
+//		List<HashMap<String, Object>>  chartData = statisService.chartData(new StatisVo());
+//		System.out.println("chartData : " + chartData);
+		return statisService.chartData(new StatisVo());
 	}
 	
 	@RequestMapping(value = "/get/seriesData", method = RequestMethod.GET)
-	public @ResponseBody ArrayList<HashMap<String, Object>> getSeriesData() {
-		ArrayList<HashMap<String, Object>>  seriesData = statisService.seriesData(null);
-		//System.out.println("param : " + param);		
-		System.out.println("SeriesData : " + seriesData);
-		return seriesData;
+	public @ResponseBody List<HashMap<String, Object>> getSeriesData() { 
+		//System.out.println("SeriesData : " + seriesData);
+		return statisService.seriesData(new StatisVo());
 	}
 	
 	/*	@RequestMapping(value = "/get/one", method = RequestMethod.GET)

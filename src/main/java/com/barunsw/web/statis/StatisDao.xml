@@ -6,7 +6,9 @@
 		SELECT 
 		 	main.auth_name,
 		 	main.auth_id,
-		 	count(main.user_id)
+		 	count(main.user_id) as count,
+		 	main.auth_id as value,
+		 	main.auth_name as label
 		 FROM
 			(SELECT 
 				a.auth_name,

@@ -6,24 +6,17 @@ $(document).ready(function () {
 function initComponent() {
 	
 	var checkBoxData = goAjaxGet('/statis/get/checkBoxData');
-	console.log('checkBoxData : ',checkBoxData)
+	console.log('checkBoxData : ',checkBoxData);
 	
 	$('#checkBoxAll').jqxCheckBox({ width: 120, height: 25, theme: 'darkblue', checked: true }); 
-
-	var value = [];
-	
-	for(var i = 0; i < checkBoxData.length; i++) {
-	   value.push(i);
-	}
-	
-	console.log('value : ', value);
 	
 	$('#checkBoxGroup').jqxCheckBoxGroup({
 		change: function(item) {
+			console.log("$('#checkBoxGroup').val()",$('#checkBoxGroup').val());
 			if (item.checked) {
-				$('#chartContainer').jqxChart('showSerie', item.value, 0, NaN);
+				$('#chartContainer').jqxChart('showSerie', item.value - 1, 0, NaN);
 			} else {
-				$('#chartContainer').jqxChart('hideSerie', item.value, 0, NaN);
+				$('#chartContainer').jqxChart('hideSerie', item.value - 1, 0, NaN);
 			}
 			console.log('item : ', item);
 			console.log('group length : ', $('#checkBoxGroup').val());
@@ -36,9 +29,10 @@ function initComponent() {
 		},
 		items	: checkBoxData,
 		layout	: 'horizontal',
-		theme	: 'darkblue',
-		value	: value
+		theme	: 'darkblue'
 	});
+	
+	$('#checkBoxGroup').jqxCheckBoxGroup('checkAll');
 	
 	$('#checkBoxAll').on('click', function() {
 		if ($('#checkBoxAll').val() == true) {
@@ -55,7 +49,7 @@ function initData() {
 	var seriesData = goAjaxGet('/statis/get/seriesData');
 	console.log('seriesData : ', seriesData);
 	
-	var chartData = goAjaxGet('/statis/get/chartData');
+	var chartData =	goAjaxGet('/statis/get/chartData');
 	console.log('chartData : ', chartData);
 	
 	// prepare jqxChart settings
