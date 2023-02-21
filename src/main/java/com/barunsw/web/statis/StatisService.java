@@ -48,6 +48,7 @@ public class StatisService {
 			chartData.add(items);
 			String.format("items : %s", items);
 		}
+		
 		return chartData;
 	}
 	

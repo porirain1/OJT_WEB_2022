@@ -7,7 +7,7 @@
 		 	main.auth_name,
 		 	main.auth_id,
 		 	count(main.user_id) as count,
-		 	main.auth_id as value,
+		 	row_number() over()-1 as value,
 		 	main.auth_name as label
 		 FROM
 			(SELECT 

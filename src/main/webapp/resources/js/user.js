@@ -25,7 +25,7 @@ function initComponent() {
         , pagesize : 10
         , pagerbuttonscount: 10
         , rendergridrows: function(obj) {
-        	console.log(obj.data);
+        	console.log('obj : ',obj);
         	return obj.data;     
 		}
 	});

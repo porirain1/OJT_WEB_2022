@@ -3,44 +3,23 @@ package com.barunsw.web.statis;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class StatisVo {
-	private int authId;
-	private String authName;
+import com.barunsw.web.auth.AuthVo;
+
+public class StatisVo extends AuthVo {
 	private int count;
 	private String label;
 	private int value;
+	private String dataField;
+	private String displayText;
 	
 	public StatisVo () {}
 		
-	public StatisVo(int authId, String authName, int count) {
-		this.authId = authId;
-		this.authName = authName;
+	public StatisVo(int count) {
 		this.count = count;
 	}
 		
-	public int getAuthId() {
-		return authId;
-	}
-
-	public void setAuthId(int authId) {
-		this.authId = authId;
-	}
-
-	public String getAuthName() {
-		return authName;
-	}
-
-	public void setAuthName(String authName) {
-		this.authName = authName;
-	}	
-
 	public int getCount() {
 		return count;
-	}
-	
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 
 	public String getLabel() {
@@ -57,6 +36,27 @@ public class StatisVo {
 
 	public void setValue(int value) {
 		this.value = value;
+	}
+	
+	public String getDataField() {
+		return dataField;
+	}
+	
+	public void setDataField(String dataField) {
+		this.dataField = dataField;
+	}
+	
+	public String getDisplayText() {
+		return displayText;
+	}
+	
+	public void setDisPlayText(String displayText) {
+		this.displayText = displayText;
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 
 }
