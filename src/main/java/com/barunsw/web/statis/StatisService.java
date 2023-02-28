@@ -12,27 +12,8 @@ public class StatisService {
 	
 	@Autowired
 	private StatisDao statisDao;
-	
-	public List<StatisVo> statisList(StatisVo statisVo) {	
 		
-		return statisDao.statisList(statisVo);
-	}
-	
-	public List<StatisVo> checkBoxData() {
-		
-//		ArrayList<HashMap<String, Object>> checkBoxData = new ArrayList<HashMap<String, Object>>();
-//		
-//		for(int i = 0; i < list.size(); i++) {
-//			HashMap<String, Object> items = new HashMap<>();
-//
-//			items.put("label", list.get(i).getAuthName());
-//			items.put("value", i);
-//			
-//			checkBoxData.add(items);
-//			String.format("items :  %s", items);
-//		}
-		return statisDao.statisList(new StatisVo());
-	}
+	public List<StatisVo> checkBoxData() { return statisDao.statisList(new StatisVo());	}
 	
 	public List<HashMap<String, Object>> chartData(StatisVo statisVo) {
 
@@ -48,7 +29,6 @@ public class StatisService {
 			chartData.add(items);
 			String.format("items : %s", items);
 		}
-		
 		return chartData;
 	}
 	
@@ -73,7 +53,6 @@ public class StatisService {
 			seriesData.add(oneSeries);
 			String.format("oneSeries : %s", oneSeries);
 		}
-		
 		return seriesData;
 	}
 }

@@ -23,12 +23,6 @@ public class StatisController {
 		return "/statis/list";
 	}
 	
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public @ResponseBody List<StatisVo> get() {
-		List<StatisVo> statisList = statisService.statisList(new StatisVo());
-		return statisList;
-	}
-	
 	@RequestMapping(value = "/get/checkBoxData", method = RequestMethod.GET)
 	public @ResponseBody List<StatisVo> getCheckBoxData() {
 		return statisService.checkBoxData();
